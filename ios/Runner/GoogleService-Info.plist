@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>135409271036-1sbvoiiu1b596r5p8hki8v8a0uhhkb72.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.135409271036-1sbvoiiu1b596r5p8hki8v8a0uhhkb72</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDhV-_fTitYYXdREDrf6J_DdQCd1Pea7uw</string>
+	<key>GCM_SENDER_ID</key>
+	<string>135409271036</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.centic.centicbids</string>
+	<key>PROJECT_ID</key>
+	<string>centic-bids-f5273</string>
+	<key>STORAGE_BUCKET</key>
+	<string>centic-bids-f5273.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:135409271036:ios:137a460df7822a08ec5779</string>
+</dict>
+</plist>

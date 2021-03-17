@@ -1,0 +1,28 @@
+{
+  "loading" : "LOADING",
+
+  "auctionPageTitle": "Auction",
+  "myBiddingsPageTitle": "My Biddings",
+  "accountPageTitle": "Account",
+
+  "basePrice": "Base Price",
+  "latestPrice": "Latest Price",
+  "viewMore": "VIEW MORE",
+
+  "auctionDetailPageTitle" : "Auction Detail",
+
+  "bid": "BID",
+
+  "infoMessageTitle": "Information Message",
+  "primaryMessageTitle": "Message",
+  "errorMessageTitle": "Error Message",
+  "successMessageTitle": "Success Message",
+  "warningMessageTitle": "Warning Message",
+  "messageSubmitBtnTitle": "OK",
+
+  "signInPageTitle": "Sign In",
+  "signInPageSubmitBtnTitle": "SIGN IN",
+
+  "signUpPageTitle": "Sign Up",
+  "signUpPageSubmitBtnTitle": "SIGN UP"
+}
