@@ -7,9 +7,9 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:auto_route/auto_route.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+import '../features/auctions/domain/entities/auction_item.dart';
 import '../features/auctions/presentation/pages/auction_detail_page.dart';
 import '../features/home/presentation/pages/home_page.dart';
 import '../features/onboarding/presentation/pages/sign_in_page.dart';
@@ -88,7 +88,7 @@ extension RouterExtendedNavigatorStateX on ExtendedNavigatorState {
   Future<dynamic> pushHomePage() => push<dynamic>(Routes.homePage);
 
   Future<dynamic> pushAuctionDetailPage({
-    @required DocumentSnapshot auction,
+    @required AuctionItem auction,
   }) =>
       push<dynamic>(
         Routes.auctionDetailPage,
@@ -106,6 +106,6 @@ extension RouterExtendedNavigatorStateX on ExtendedNavigatorState {
 
 /// AuctionDetailPage arguments holder class
 class AuctionDetailPageArguments {
-  final DocumentSnapshot auction;
+  final AuctionItem auction;
   AuctionDetailPageArguments({@required this.auction});
 }

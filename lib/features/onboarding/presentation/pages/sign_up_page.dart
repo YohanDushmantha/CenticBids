@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:centic_bids/features/onboarding/domain/entities/app_user.dart';
 import 'package:centic_bids/routes/router.gr.dart';
 import 'package:centic_bids/core/features/presentation/pages/base_page.dart';
 import 'package:centic_bids/core/features/presentation/pages/basic_page_mixin.dart';
@@ -28,6 +29,10 @@ class _SignUpPageState extends BaseState<SignUpPage>
   final SignUpBloc signUpBloc = di<SignUpBloc>();
   final AppStates appStates = di();
 
+  TextEditingController firstNameFieldController = TextEditingController();
+  FocusNode firstNameFieldFocusNode = FocusNode();
+  TextEditingController lastNameFieldController = TextEditingController();
+  FocusNode lastNameFieldFocusNode = FocusNode();
   TextEditingController emailFieldController = TextEditingController();
   FocusNode emailFieldFocusNode = FocusNode();
   TextEditingController passwordFieldController = TextEditingController();
@@ -62,12 +67,12 @@ class _SignUpPageState extends BaseState<SignUpPage>
         }
 
         if(state is RegisterUserWithUsernameAndPasswordSuccess){
-          appStates.userCredential = state.userCredential;
+          appStates.appUser = state.appUser;
           bottomSheetMessageHelper.showMessage(
               type: WidgetType.SUCCESS,
               message: S.of(context).signupSuccessMessage,
             context: context,
-            onTapSubmitCallback: () => _onTapSuccessMessageSubmit(context, state.userCredential)
+            onTapSubmitCallback: () => _onTapSuccessMessageSubmit(context, state.appUser)
           );
         }
       },
@@ -99,6 +104,22 @@ class _SignUpPageState extends BaseState<SignUpPage>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
+              DefaultTextField(
+                textFieldLabel: S.of(context).signUpPageFirstNameFieldLabel,
+                textFieldPlaceHolder: '',
+                controller: firstNameFieldController,
+                textInputAction: TextInputAction.next,
+                focusNode: firstNameFieldFocusNode,
+                nextFocusNode: lastNameFieldFocusNode,
+              ),
+              DefaultTextField(
+                textFieldLabel: S.of(context).signUpPageLastNameFieldLabel,
+                textFieldPlaceHolder: '',
+                controller: lastNameFieldController,
+                textInputAction: TextInputAction.next,
+                focusNode: lastNameFieldFocusNode,
+                nextFocusNode: emailFieldFocusNode,
+              ),
               DefaultTextField(
                 textFieldLabel: S.of(context).signUpPageEmailFieldLabel,
                 textFieldPlaceHolder: '',
@@ -155,6 +176,8 @@ class _SignUpPageState extends BaseState<SignUpPage>
   _onTapSubmit(BuildContext context) {
     signUpBloc.add(RegisterUserWithUsernameAndPasswordEvent(
       context: context,
+      firstName: firstNameFieldController.text?.trim(),
+      lastName: lastNameFieldController.text?.trim(),
       email: emailFieldController.text?.trim(),
       password: passwordFieldController?.text?.trim(),
       retypePassword: retypePasswordFieldController?.text?.trim()
@@ -162,30 +185,14 @@ class _SignUpPageState extends BaseState<SignUpPage>
   }
 
   _onTapAlreadyHaveAnAccount(BuildContext context) async{
-    //ExtendedNavigator.of(context).pop();
-    ExtendedNavigator.of(context).pushSignInPage().then(
-            (userCredential) => {
-          //if(userCredential != null){
-            _returnFromSignInPage(userCredential)
-          //}
-        }
-    );
-  }
-
-  _returnFromSignInPage(dynamic credential){
-    print('YD -> return from signin page');
-    if(credential != null){
-      print('YD -> return from signin page not null');
-      ExtendedNavigator.of(context).pop(credential);
-    }
+    ExtendedNavigator.of(context).pop();
   }
 
 
-  _onTapSuccessMessageSubmit(BuildContext context, UserCredential credential){
+  _onTapSuccessMessageSubmit(BuildContext context, AppUser appUser){
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      ExtendedNavigator.of(context).pop(credential);
+      ExtendedNavigator.of(context).pop(appUser);
     });
-
   }
 }
 

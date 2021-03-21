@@ -3,6 +3,7 @@ import 'package:centic_bids/core/errors/failures.dart';
 import 'package:centic_bids/core/network/response/error.dart';
 import 'package:centic_bids/core/utils/network_info/network_info.dart';
 import 'package:centic_bids/features/onboarding/data/remote/firebase_auth_remote_datasource.dart';
+import 'package:centic_bids/features/onboarding/domain/entities/app_user.dart';
 import 'package:centic_bids/features/onboarding/domain/repositories/firebase_auth_repository.dart';
 import 'package:centic_bids/features/onboarding/domain/use_case/authenticate_user_with_firebase_usecase.dart' as authenticateUserWithFirebaseUsecase;
 import 'package:centic_bids/features/onboarding/domain/use_case/register_user_with_firebase_usecase.dart' as registerUserWithFirebaseUsecase;
@@ -16,12 +17,20 @@ class FirebaseAuthRepositoryImpl extends FirebaseAuthRepository{
   FirebaseAuthRepositoryImpl({this.remoteDatasource, this.networkInfo});
 
   @override
-  Future<Either<Failure, UserCredential>> createUserWithEmailAndPassword(registerUserWithFirebaseUsecase.Params params) async{
+  Future<Either<Failure, AppUser>> createUserWithEmailAndPassword(registerUserWithFirebaseUsecase.Params params) async{
     if (true) {
       try {
-        final response = await remoteDatasource.createUserWithEmailAndPassword(
-            params);
-        return Right(response);
+        final response = await remoteDatasource.createUserWithEmailAndPassword(params);
+        if(response?.user == null){
+          return Left(ServerFailure(Error(errorMessage: SERVER_FAILURE_MESSAGE)));
+        }
+
+        final userInsert = await remoteDatasource.createUserInFirestore(params, response);
+        if(userInsert == null || userInsert.uid == null || userInsert.uid == ''){
+          return Left(ServerFailure(Error(errorMessage: SERVER_FAILURE_MESSAGE)));
+        }
+
+        return Right(userInsert);
       } on FirebaseAuthException catch (e){
         if (e.code == 'weak-password') {
           return Left(ServerFailure(Error(errorMessage: 'The password provided is too weak.')));
@@ -39,12 +48,20 @@ class FirebaseAuthRepositoryImpl extends FirebaseAuthRepository{
   }
 
   @override
-  Future<Either<Failure, UserCredential>> signInWithEmailAndPassword(authenticateUserWithFirebaseUsecase.Params params) async{
+  Future<Either<Failure, AppUser>> signInWithEmailAndPassword(authenticateUserWithFirebaseUsecase.Params params) async{
     if (true) {
       try {
-        final response = await remoteDatasource.signInWithEmailAndPassword(
-            params);
-        return Right(response);
+        final response = await remoteDatasource?.signInWithEmailAndPassword(params);
+
+        if(response?.user == null){
+          return Left(ServerFailure(Error(errorMessage: SERVER_FAILURE_MESSAGE)));
+        }
+
+        final appUser = await remoteDatasource?.getUserFromFirestore(params, response);
+        if(appUser == null || appUser.uid == null || appUser.uid == ''){
+          return Left(ServerFailure(Error(errorMessage: SERVER_FAILURE_MESSAGE)));
+        }
+        return Right(appUser);
       } on FirebaseAuthException catch (e){
         if (e.code == 'user-not-found') {
           return Left(ServerFailure(Error(errorMessage: 'No user found for that email.')));

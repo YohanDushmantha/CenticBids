@@ -7,11 +7,11 @@ abstract class AuctionsEvent extends Equatable {
 }
 
 class FetchAuctions extends AuctionsEvent{
-
-  FetchAuctions();
+  final bool shouldReset;
+  FetchAuctions({this.shouldReset = false});
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [shouldReset];
 }
 
 

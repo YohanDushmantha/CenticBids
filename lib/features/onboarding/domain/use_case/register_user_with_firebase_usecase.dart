@@ -7,6 +7,7 @@ import 'package:centic_bids/core/utils/validator/validation_configs/required_val
 import 'package:centic_bids/core/utils/validator/validation_field.dart';
 import 'package:centic_bids/core/utils/validator/validation_result.dart';
 import 'package:centic_bids/core/utils/validator/validator.dart';
+import 'package:centic_bids/features/onboarding/domain/entities/app_user.dart';
 import 'package:centic_bids/features/onboarding/domain/repositories/firebase_auth_repository.dart';
 import 'package:centic_bids/generated/l10n.dart';
 import 'package:dartz/dartz.dart';
@@ -16,7 +17,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:centic_bids/core/network/response/error.dart';
 
-class RegisterUserWithFirebaseUseCase extends UseCase<UserCredential, Params>{
+class RegisterUserWithFirebaseUseCase extends UseCase<AppUser, Params>{
 
   final FirebaseAuthRepository repository;
   final Validator validator;
@@ -24,7 +25,7 @@ class RegisterUserWithFirebaseUseCase extends UseCase<UserCredential, Params>{
   RegisterUserWithFirebaseUseCase({this.repository, this.validator});
 
   @override
-  Future<Either<Failure, UserCredential>> call(Params params) async {
+  Future<Either<Failure, AppUser>> call(Params params) async {
     final validationResult = await validate(params);
     if(validationResult.isValid){
       return repository.createUserWithEmailAndPassword(params);
@@ -35,6 +36,18 @@ class RegisterUserWithFirebaseUseCase extends UseCase<UserCredential, Params>{
 
   Future<ValidationResult> validate(Params params) async{
     List<ValidationField> validationFieldList = [
+      ValidationField(
+          fieldName: S.of(params.context).signUpPageFirstNameFieldLabel,
+          value: params?.firstName?.trim(),
+          validationConfigList: [
+            RequiredValidationConfig(),
+          ]),
+      ValidationField(
+          fieldName: S.of(params.context).signUpPageLastNameFieldLabel,
+          value: params?.lastName?.trim(),
+          validationConfigList: [
+            RequiredValidationConfig(),
+          ]),
       ValidationField(
           fieldName: S.of(params.context).signUpPageEmailFieldLabel,
           value: params?.email?.trim(),
@@ -57,13 +70,15 @@ class RegisterUserWithFirebaseUseCase extends UseCase<UserCredential, Params>{
 }
 
 class Params extends Equatable{
+  final String firstName;
+  final String lastName;
   final String email;
   final String password;
   final String retypePassword;
   final BuildContext context;
 
-  Params({@required this.context ,@required this.email, @required this.password, @required this.retypePassword});
+  Params({@required this.context ,@required this.firstName, @required this.lastName,@required this.email, @required this.password, @required this.retypePassword});
 
   @override
-  List<Object> get props => [context, email,password, retypePassword];
+  List<Object> get props => [context, firstName, lastName, email,password, retypePassword];
 }

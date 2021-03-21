@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:centic_bids/core/states/app_states.dart';
+import 'package:centic_bids/features/onboarding/domain/entities/app_user.dart';
 import 'package:centic_bids/routes/router.gr.dart';
 import 'package:centic_bids/core/features/presentation/pages/base_page.dart';
 import 'package:centic_bids/core/features/presentation/pages/basic_page_mixin.dart';
@@ -52,12 +53,12 @@ class _SignInPageState extends BaseState<SignInPage>
           }
 
           if(state is AuthenticateWithUsernameAndPasswordSuccess){
-            appStates.userCredential = state.userCredential;
+            appStates.appUser = state.appUser;
             bottomSheetMessageHelper.showMessage(
                 type: WidgetType.SUCCESS,
                 message: S.of(context).signinSuccessMessage,
                 context: context,
-                onTapSubmitCallback: () => _onTapSuccessMessageSubmit(context, state.userCredential)
+                onTapSubmitCallback: () => _onTapSuccessMessageSubmit(context, state.appUser)
             );
           }
         },
@@ -140,15 +141,17 @@ class _SignInPageState extends BaseState<SignInPage>
   }
 
   _onTapRegister(BuildContext context){
-    ExtendedNavigator.of(context).pop();
+    ExtendedNavigator.of(context).pushSignUpPage().then((appUser) => {
+      _onTapSuccessMessageSubmit(context, appUser)
+    });
   }
 
-  _onTapSuccessMessageSubmit(BuildContext context, UserCredential userCredential){
+  _onTapSuccessMessageSubmit(BuildContext context, AppUser appUser){
     print('YD -> ontap success message inside signin');
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      if(userCredential != null){
+      if(appUser != null){
         print('YD -> ontap success message inside signin with credentials');
-        Navigator.of(context).pop(userCredential);
+        Navigator.of(context).pop(appUser);
       }
     });
 

@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:centic_bids/core/ui/widgets/buttons/small_outline_button.dart';
 import 'package:centic_bids/core/ui/widgets/widget_type.dart';
+import 'package:centic_bids/features/auctions/domain/entities/auction_item.dart';
 import 'package:centic_bids/generated/l10n.dart';
 import 'package:centic_bids/injection_container.dart';
 import 'package:centic_bids/routes/router.gr.dart';
@@ -14,10 +15,11 @@ import 'package:centic_bids/themes/app_colors.dart' as appColors;
 import 'package:centic_bids/core/extensions/currency_extension.dart';
 
 class AuctionItemTile extends StatelessWidget {
-  final DocumentSnapshot item;
+  final AuctionItem item;
   final AuctionItemTileStyles styles = di();
+  final Function(AuctionItem) onSelectedTileCallback;
 
-  AuctionItemTile({@required this.item});
+  AuctionItemTile({@required this.item, this.onSelectedTileCallback});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +35,7 @@ class AuctionItemTile extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 12.0),
                   child: Text(
-                    item['title'],
+                    item.title,
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context)
                         .textTheme
@@ -57,7 +59,7 @@ class AuctionItemTile extends StatelessWidget {
                             height: 4,
                           ),
                           Text(
-                            item['base_price'].toString().toCurrency(),
+                            item.basePrice.toString().toCurrency(),
                             textAlign: TextAlign.right,
                             style: Theme.of(context)
                                 .textTheme
@@ -82,7 +84,7 @@ class AuctionItemTile extends StatelessWidget {
                             height: 4,
                           ),
                           Text(
-                            item['latest_price'].toString().toCurrency(),
+                            item.latestPrice.toString().toCurrency(),
                             textAlign: TextAlign.right,
                             style: Theme.of(context)
                                 .textTheme
@@ -102,7 +104,7 @@ class AuctionItemTile extends StatelessWidget {
                       child: ClipRRect(
                         borderRadius: BorderRadius.all(Radius.circular(4)),
                         child: ExtendedImage.network(
-                          item['images'][0],
+                          item.images[0],
                           cache: true,
                         ),
                       ),
@@ -112,7 +114,7 @@ class AuctionItemTile extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Countdown(
-                              timestamp: item['clearance_date']),
+                              timestamp: item.clearanceTime),
                           SizedBox(height: 16,),
                           SmallOutlineButton(
                             type: WidgetType.PRIMARY,
@@ -133,10 +135,8 @@ class AuctionItemTile extends StatelessWidget {
     );
   }
 
-  _onTapBid(BuildContext context, DocumentSnapshot documentSnapshot) {
-    print(documentSnapshot['title']);
-    ExtendedNavigator.of(context)
-        .pushAuctionDetailPage(auction: documentSnapshot);
+  _onTapBid(BuildContext context, AuctionItem auctionItem) {
+    onSelectedTileCallback(auctionItem);
   }
 }
 

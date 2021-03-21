@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:centic_bids/core/errors/failures.dart';
-import 'package:centic_bids/features/auctions/domain/use_cases/fetch_auctions_usecase.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:centic_bids/features/auctions/domain/use_cases/fetch_auctions_usecase.dart'
     as fetchAuctionsUsecase;
@@ -22,6 +21,9 @@ class AuctionsBloc extends Bloc<AuctionsEvent, AuctionsState> {
     print('YD -> state is mapEventToState');
     if (event is FetchAuctions) {
       print('YD -> state is FetchAuctions');
+      if(event.shouldReset == true){
+        auctionList = [];
+      }
       yield Loading(auctionList: auctionList);
       final failOrAuctionsList = await fetchAuctions(
           fetchAuctionsUsecase.Params(
@@ -38,7 +40,7 @@ class AuctionsBloc extends Bloc<AuctionsEvent, AuctionsState> {
     yield either.fold((failure) {
       return Error(auctionList: auctionList);
     }, (result) {
-      auctionList.addAll(result);
+      auctionList?.addAll(result);
       return AuctionLoaded(auctionList: auctionList);
     });
   }

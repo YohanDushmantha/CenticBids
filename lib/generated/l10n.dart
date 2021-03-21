@@ -265,6 +265,26 @@ class S {
     );
   }
 
+  /// `First Name`
+  String get signUpPageFirstNameFieldLabel {
+    return Intl.message(
+      'First Name',
+      name: 'signUpPageFirstNameFieldLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Last Name`
+  String get signUpPageLastNameFieldLabel {
+    return Intl.message(
+      'Last Name',
+      name: 'signUpPageLastNameFieldLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Email`
   String get signUpPageEmailFieldLabel {
     return Intl.message(
@@ -310,6 +330,36 @@ class S {
     return Intl.message(
       'Already have an account?',
       name: 'signupAlreadyHaveAnAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Bid Now`
+  String get biddingPageTitle {
+    return Intl.message(
+      'Bid Now',
+      name: 'biddingPageTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `BID NOW`
+  String get biddingBidNowBtnTitle {
+    return Intl.message(
+      'BID NOW',
+      name: 'biddingBidNowBtnTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `NOT NOW`
+  String get biddingCloseBtnTitle {
+    return Intl.message(
+      'NOT NOW',
+      name: 'biddingCloseBtnTitle',
       desc: '',
       args: [],
     );

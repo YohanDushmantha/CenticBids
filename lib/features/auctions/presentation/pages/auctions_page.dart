@@ -1,4 +1,7 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:centic_bids/routes/router.gr.dart';
 import 'package:centic_bids/core/ui/widgets/bottom_sheet_progress_indicator/bottom_sheet_progress_indicator_helper.dart';
+import 'package:centic_bids/features/auctions/domain/entities/auction_item.dart';
 import 'package:centic_bids/features/auctions/presentation/bloc/auctions/auctions_bloc.dart';
 import 'package:centic_bids/features/auctions/presentation/widgets/auction_item_tile.dart';
 import 'package:centic_bids/generated/l10n.dart';
@@ -58,7 +61,8 @@ class _AuctionsPageState extends State<AuctionsPage> {
                   shrinkWrap: true,
                   controller: controller,
                   itemBuilder: (context, index) {
-                    return AuctionItemTile(item: state.auctionList[index]);
+                    return AuctionItemTile(item: AuctionItem.fromJson(state.auctionList[index]?.data(), state.auctionList[index]?.id)
+                    , onSelectedTileCallback: (auctionItem) => _onItemSelectedCallback(auctionItem),);
                   },
                 ),
               ),
@@ -72,6 +76,13 @@ class _AuctionsPageState extends State<AuctionsPage> {
         !controller.position.outOfRange) {
       auctionsBloc.add(FetchAuctions());
     }
+  }
+
+  _onItemSelectedCallback(AuctionItem auctionItem){
+    ExtendedNavigator.of(context)
+        .pushAuctionDetailPage(auction: auctionItem).then((value) => {
+          auctionsBloc.add(FetchAuctions(shouldReset: true))
+    });
   }
 
   getAuctions() {

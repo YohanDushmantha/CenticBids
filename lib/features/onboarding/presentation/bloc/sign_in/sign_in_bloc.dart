@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:centic_bids/core/errors/failures.dart';
 import 'package:centic_bids/core/features/presentation/bloc/error_handling_bloc_mixin.dart';
+import 'package:centic_bids/features/onboarding/domain/entities/app_user.dart';
 import 'package:centic_bids/features/onboarding/domain/use_case/authenticate_user_with_firebase_usecase.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -23,9 +24,9 @@ class SignInBloc extends Bloc<SignInEvent, SignInState>  with ErrorHandlingBlocM
   }
 
   Stream<SignInState> _eitherAuthenticationSuccessOrErrorState(
-      Either<Failure, UserCredential> either) async* {
+      Either<Failure, AppUser> either) async* {
     yield either.fold(
             (failure) => Error(runtimeError: mapFailureToRuntimeError(failure)),
-            (userCredential) => AuthenticateWithUsernameAndPasswordSuccess(userCredential: userCredential));
+            (appUser) => AuthenticateWithUsernameAndPasswordSuccess(appUser: appUser));
   }
 }

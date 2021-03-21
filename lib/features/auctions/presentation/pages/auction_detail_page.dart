@@ -1,4 +1,8 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:centic_bids/core/states/app_states.dart';
+import 'package:centic_bids/features/auctions/domain/entities/auction_item.dart';
+import 'package:centic_bids/features/auctions/presentation/helpers/bidding_bottom_sheet_helper.dart';
+import 'package:centic_bids/features/onboarding/domain/entities/app_user.dart';
 import 'package:centic_bids/routes/router.gr.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:centic_bids/core/ui/widgets/bottom_sheet_message/bottom_sheet_message_helper.dart';
@@ -16,26 +20,26 @@ import 'package:centic_bids/core/extensions/currency_extension.dart';
 import 'package:centic_bids/themes/app_colors.dart' as appColors;
 
 class AuctionDetailPage extends StatelessWidget {
-  final DocumentSnapshot auction;
+  final AuctionItem auction;
   final BottomSheetProgressIndicatorHelper bottomSheetProgressIndicatorHelper =
       di();
   final BottomSheetMessageHelper bottomSheetMessageHelper = di();
 
-  FirebaseAuth auth = FirebaseAuth.instance;
-
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  final AppStates appStates = di();
+  final BiddingBottomSheetHelper biddingBottomSheetHelper = di();
 
 
   AuctionDetailPage({@required this.auction}){
-    FirebaseAuth.instance
-        .authStateChanges()
-        .listen((User user) {
-      if (user == null) {
-        print('User is currently signed out!');
-      } else {
-
-        print('User is signed in! '+user.email);
-      }
-    });
+    // FirebaseAuth.instance
+    //     .authStateChanges()
+    //     .listen((User user) {
+    //   if (user == null) {
+    //     appStates.userCredential = null;
+    //   } else {
+    //     appStates.userCredential = user;
+    //   }
+    // });
   }
 
   @override
@@ -57,7 +61,7 @@ class AuctionDetailPage extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(bottom: 16.0),
-                      child: Text(auction['title'], textAlign: TextAlign.start, style: Theme.of(context).textTheme.headline3.copyWith(fontWeight: FontWeight.w500),),
+                      child: Text(auction.title, textAlign: TextAlign.start, style: Theme.of(context).textTheme.headline3.copyWith(fontWeight: FontWeight.w500),),
                     ),
                     Row(
                       children: [
@@ -67,7 +71,7 @@ class AuctionDetailPage extends StatelessWidget {
                               children: [
                                 Text(S.of(context).basePrice, style: Theme.of(context).textTheme.headline4.copyWith(color: appColors.darkGray),),
                                 Text(
-                                  auction['base_price'].toString().toCurrency(),
+                                  auction.basePrice.toString().toCurrency(),
                                   textAlign: TextAlign.right,
                                   style: Theme.of(context).textTheme.headline3.copyWith(color: appColors.red),
                                 )
@@ -79,7 +83,7 @@ class AuctionDetailPage extends StatelessWidget {
                               children: [
                                 Text(S.of(context).latestPrice, style: Theme.of(context).textTheme.headline4.copyWith(color: appColors.darkGray),),
                                 Text(
-                                  auction['base_price'].toString().toCurrency(),
+                                  auction.latestPrice.toString().toCurrency(),
                                   textAlign: TextAlign.right,
                                     style: Theme.of(context).textTheme.headline3.copyWith(color: appColors.green),
                                 )
@@ -89,9 +93,9 @@ class AuctionDetailPage extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 16.0),
-                      child: Countdown(timestamp: auction['clearance_date']),
+                      child: Countdown(timestamp: auction?.clearanceTime),
                     ),
-                    Text(auction['description'], style: Theme.of(context).textTheme.bodyText1,),
+                    Text(auction?.description, style: Theme.of(context).textTheme.bodyText1,),
                   ],
                 ),
               )
@@ -118,7 +122,7 @@ class AuctionDetailPage extends StatelessWidget {
         enlargeCenterPage: true,
         scrollDirection: Axis.horizontal,
       ),
-      items: auction['images']
+      items: auction?.images
           .map<Widget>((item) => Container(
                 child: ExtendedImage.network(
                   item,
@@ -143,19 +147,35 @@ class AuctionDetailPage extends StatelessWidget {
   }
 
   _onTapBid(BuildContext context) {
-    //signInWithGoogle();
-    ExtendedNavigator.of(context).pushSignUpPage().then((userCredentials) => _returnFromSignUpPage(userCredentials));
-    // ExtendedNavigator.of(context).pushSignUpPage().then((value) => {
-    //
-    // });
-    //bottomSheetMessageHelper.showMessage(type: WidgetType.INFO, context: context, message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nec augue ac nisl scelerisque faucibus. ');
+    if(appStates.appUser != null){
+      biddingBottomSheetHelper.show(context: context,
+              auction: auction,
+              isDismissible: true,
+              isDraggable: true,
+          onTapSubmitCallback: (value) => {
+        _onSubmitBiddingBottomSheet(value)
+      });
+    }else{
+      ExtendedNavigator.of(context).pushSignInPage().then((appUser) => _returnFromSignUpPage(context,appUser));
+    }
   }
   
-  _returnFromSignUpPage(UserCredential userCredential){
+  _returnFromSignUpPage(BuildContext context, AppUser appUser){
     print('YD -> return from signup page');
-    if(userCredential != null){
-      print('YD -> return from signup page'+userCredential?.user?.email);
+    if(appUser != null){
+      print('YD -> return from signup page'+appUser?.email);
+      biddingBottomSheetHelper.show(context: context,
+          auction: auction,
+          isDismissible: true,
+          isDraggable: true,
+          onTapSubmitCallback: (value) => {
+            _onSubmitBiddingBottomSheet(value)
+          });
     }
+  }
+
+  _onSubmitBiddingBottomSheet(String value){
+
   }
   
 }

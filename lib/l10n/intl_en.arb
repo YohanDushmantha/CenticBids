@@ -29,11 +29,17 @@
 
   "signUpPageTitle": "Sign Up",
   "signUpPageSubmitBtnTitle": "SIGN UP",
+  "signUpPageFirstNameFieldLabel": "First Name",
+  "signUpPageLastNameFieldLabel": "Last Name",
   "signUpPageEmailFieldLabel": "Email",
   "signUpPagePasswordFieldLabel": "Password",
   "signupPageRetypePasswordLabel": "Retype Password",
   "signupSuccessMessage": "User is registered successfully",
   "signupAlreadyHaveAnAccount": "Already have an account?",
+
+  "biddingPageTitle": "Bid Now",
+  "biddingBidNowBtnTitle": "BID NOW",
+  "biddingCloseBtnTitle": "NOT NOW",
 
   "validationIsRequired": "{fieldName} can not be empty",
   "validationIsNumber": "{fieldName} is not a valid number",

@@ -1,4 +1,5 @@
 import 'package:centic_bids/core/features/presentation/bloc/runtime_error.dart';
+import 'package:centic_bids/features/onboarding/domain/entities/app_user.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
@@ -18,12 +19,12 @@ class Loading extends SignInState{
 }
 
 class AuthenticateWithUsernameAndPasswordSuccess extends SignInState{
-  final UserCredential userCredential;
+  final AppUser appUser;
 
-  AuthenticateWithUsernameAndPasswordSuccess({@required this.userCredential});
+  AuthenticateWithUsernameAndPasswordSuccess({@required this.appUser});
 
   @override
-  List<Object> get props => [userCredential];
+  List<Object> get props => [appUser];
 }
 
 class Error extends SignInState{
