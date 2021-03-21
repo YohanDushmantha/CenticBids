@@ -19,7 +19,9 @@ class AuctionsBloc extends Bloc<AuctionsEvent, AuctionsState> {
   Stream<AuctionsState> mapEventToState(
     AuctionsEvent event,
   ) async* {
+    print('YD -> state is mapEventToState');
     if (event is FetchAuctions) {
+      print('YD -> state is FetchAuctions');
       yield Loading(auctionList: auctionList);
       final failOrAuctionsList = await fetchAuctions(
           fetchAuctionsUsecase.Params(

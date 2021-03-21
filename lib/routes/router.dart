@@ -17,8 +17,8 @@ import 'package:centic_bids/features/splash/presentation/pages/splash_page.dart'
     MaterialRoute(page: SplashPage, initial: true),
     MaterialRoute(page: HomePage),
     MaterialRoute(page: AuctionDetailPage),
-    MaterialRoute(page: SignInPage),
-    MaterialRoute(page: SignUpPage)
+    MaterialRoute(page: SignInPage,name: 'sign-in'),
+    MaterialRoute(page: SignUpPage, name: 'sign-up')
   ]
 )
 class $Router {

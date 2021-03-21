@@ -150,6 +150,9 @@ class DefaultTextField extends StatelessWidget {
       inputFormatters: inputFormatters ?? [],
       obscureText: isObsecureText ?? false,
       autofocus: isAutoFocus ?? false,
+      decoration: InputDecoration(
+        border: InputBorder.none
+      ),
     );
   }
 

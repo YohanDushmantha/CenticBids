@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>135409271036-1sbvoiiu1b596r5p8hki8v8a0uhhkb72.apps.googleusercontent.com</string>
+	<string>135409271036-it4u8g7v6vfpub9grc904hjof10gnpm0.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.135409271036-1sbvoiiu1b596r5p8hki8v8a0uhhkb72</string>
+	<string>com.googleusercontent.apps.135409271036-it4u8g7v6vfpub9grc904hjof10gnpm0</string>
 	<key>API_KEY</key>
 	<string>AIzaSyDhV-_fTitYYXdREDrf6J_DdQCd1Pea7uw</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.centic.centicbids</string>
+	<string>com.centic.centicBids</string>
 	<key>PROJECT_ID</key>
 	<string>centic-bids-f5273</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:135409271036:ios:137a460df7822a08ec5779</string>
+	<string>1:135409271036:ios:9519e27bc0f86e47ec5779</string>
 </dict>
 </plist>

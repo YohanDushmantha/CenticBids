@@ -19,6 +19,16 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
+  static m0(fieldName) => "${fieldName} is not a valid email";
+
+  static m1(fieldName) => "${fieldName} is not a valid number";
+
+  static m2(fieldName) => "${fieldName} can not be empty";
+
+  static m3(fieldName, requiredMaxLength) => "${fieldName} length should be less than ${requiredMaxLength}";
+
+  static m4(fieldName, requiredMinLength) => "${fieldName} length should be greater than ${requiredMinLength}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
     "accountPageTitle" : MessageLookupByLibrary.simpleMessage("Account"),
@@ -33,11 +43,28 @@ class MessageLookup extends MessageLookupByLibrary {
     "messageSubmitBtnTitle" : MessageLookupByLibrary.simpleMessage("OK"),
     "myBiddingsPageTitle" : MessageLookupByLibrary.simpleMessage("My Biddings"),
     "primaryMessageTitle" : MessageLookupByLibrary.simpleMessage("Message"),
+    "signInPageEmailFieldLabel" : MessageLookupByLibrary.simpleMessage("Email"),
+    "signInPagePasswordFieldLabel" : MessageLookupByLibrary.simpleMessage("Password"),
     "signInPageSubmitBtnTitle" : MessageLookupByLibrary.simpleMessage("SIGN IN"),
     "signInPageTitle" : MessageLookupByLibrary.simpleMessage("Sign In"),
+    "signUpPageEmailFieldLabel" : MessageLookupByLibrary.simpleMessage("Email"),
+    "signUpPagePasswordFieldLabel" : MessageLookupByLibrary.simpleMessage("Password"),
     "signUpPageSubmitBtnTitle" : MessageLookupByLibrary.simpleMessage("SIGN UP"),
     "signUpPageTitle" : MessageLookupByLibrary.simpleMessage("Sign Up"),
+    "signinRegister" : MessageLookupByLibrary.simpleMessage("Create Account"),
+    "signinSuccessMessage" : MessageLookupByLibrary.simpleMessage("User log in to the application successfully"),
+    "signupAlreadyHaveAnAccount" : MessageLookupByLibrary.simpleMessage("Already have an account?"),
+    "signupPageRetypePasswordLabel" : MessageLookupByLibrary.simpleMessage("Retype Password"),
+    "signupSuccessMessage" : MessageLookupByLibrary.simpleMessage("User is registered successfully"),
     "successMessageTitle" : MessageLookupByLibrary.simpleMessage("Success Message"),
+    "validationEmailNotValid" : MessageLookupByLibrary.simpleMessage("Email is not valid"),
+    "validationIsEmail" : m0,
+    "validationIsNumber" : m1,
+    "validationIsRequired" : m2,
+    "validationMaxLengthRequired" : m3,
+    "validationMinLengthRequired" : m4,
+    "validationPasswordNotEqualsToConfirmPassword" : MessageLookupByLibrary.simpleMessage("Password is not matched with confirm password."),
+    "validationPhoneNumberNotValid" : MessageLookupByLibrary.simpleMessage("Phone Number is not valid"),
     "viewMore" : MessageLookupByLibrary.simpleMessage("VIEW MORE"),
     "warningMessageTitle" : MessageLookupByLibrary.simpleMessage("Warning Message")
   };

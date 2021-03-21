@@ -4,12 +4,12 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:centic_bids/core/ui/widgets/bottom_sheet_message/bottom_sheet_message_helper.dart';
 import 'package:centic_bids/core/ui/widgets/bottom_sheet_progress_indicator/bottom_sheet_progress_indicator_helper.dart';
 import 'package:centic_bids/core/ui/widgets/buttons/main_bar_button.dart';
-import 'package:centic_bids/core/ui/widgets/widget_type.dart';
 import 'package:centic_bids/features/auctions/presentation/widgets/countdown.dart';
 import 'package:centic_bids/generated/l10n.dart';
 import 'package:centic_bids/injection_container.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:extended_image/extended_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:centic_bids/core/extensions/currency_extension.dart';
@@ -21,8 +21,22 @@ class AuctionDetailPage extends StatelessWidget {
       di();
   final BottomSheetMessageHelper bottomSheetMessageHelper = di();
 
+  FirebaseAuth auth = FirebaseAuth.instance;
 
-  AuctionDetailPage({@required this.auction});
+
+
+  AuctionDetailPage({@required this.auction}){
+    FirebaseAuth.instance
+        .authStateChanges()
+        .listen((User user) {
+      if (user == null) {
+        print('User is currently signed out!');
+      } else {
+
+        print('User is signed in! '+user.email);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +44,6 @@ class AuctionDetailPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(S.of(context).auctionDetailPageTitle),
       ),
-        resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
         child: Container(
           child: Column(
@@ -130,7 +143,19 @@ class AuctionDetailPage extends StatelessWidget {
   }
 
   _onTapBid(BuildContext context) {
-    ExtendedNavigator.of(context).pushSignInPage();
+    //signInWithGoogle();
+    ExtendedNavigator.of(context).pushSignUpPage().then((userCredentials) => _returnFromSignUpPage(userCredentials));
+    // ExtendedNavigator.of(context).pushSignUpPage().then((value) => {
+    //
+    // });
     //bottomSheetMessageHelper.showMessage(type: WidgetType.INFO, context: context, message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nec augue ac nisl scelerisque faucibus. ');
   }
+  
+  _returnFromSignUpPage(UserCredential userCredential){
+    print('YD -> return from signup page');
+    if(userCredential != null){
+      print('YD -> return from signup page'+userCredential?.user?.email);
+    }
+  }
+  
 }

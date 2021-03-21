@@ -22,7 +22,25 @@
 
   "signInPageTitle": "Sign In",
   "signInPageSubmitBtnTitle": "SIGN IN",
+  "signInPageEmailFieldLabel": "Email",
+  "signInPagePasswordFieldLabel": "Password",
+  "signinSuccessMessage": "User log in to the application successfully",
+  "signinRegister" : "Create Account",
 
   "signUpPageTitle": "Sign Up",
-  "signUpPageSubmitBtnTitle": "SIGN UP"
+  "signUpPageSubmitBtnTitle": "SIGN UP",
+  "signUpPageEmailFieldLabel": "Email",
+  "signUpPagePasswordFieldLabel": "Password",
+  "signupPageRetypePasswordLabel": "Retype Password",
+  "signupSuccessMessage": "User is registered successfully",
+  "signupAlreadyHaveAnAccount": "Already have an account?",
+
+  "validationIsRequired": "{fieldName} can not be empty",
+  "validationIsNumber": "{fieldName} is not a valid number",
+  "validationIsEmail" : "{fieldName} is not a valid email",
+  "validationPasswordNotEqualsToConfirmPassword" : "Password is not matched with confirm password.",
+  "validationMinLengthRequired": "{fieldName} length should be greater than {requiredMinLength}",
+  "validationMaxLengthRequired": "{fieldName} length should be less than {requiredMaxLength}",
+  "validationEmailNotValid": "Email is not valid",
+  "validationPhoneNumberNotValid": "Phone Number is not valid"
 }

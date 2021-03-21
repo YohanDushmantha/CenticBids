@@ -205,6 +205,46 @@ class S {
     );
   }
 
+  /// `Email`
+  String get signInPageEmailFieldLabel {
+    return Intl.message(
+      'Email',
+      name: 'signInPageEmailFieldLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password`
+  String get signInPagePasswordFieldLabel {
+    return Intl.message(
+      'Password',
+      name: 'signInPagePasswordFieldLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `User log in to the application successfully`
+  String get signinSuccessMessage {
+    return Intl.message(
+      'User log in to the application successfully',
+      name: 'signinSuccessMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create Account`
+  String get signinRegister {
+    return Intl.message(
+      'Create Account',
+      name: 'signinRegister',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Sign Up`
   String get signUpPageTitle {
     return Intl.message(
@@ -220,6 +260,136 @@ class S {
     return Intl.message(
       'SIGN UP',
       name: 'signUpPageSubmitBtnTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email`
+  String get signUpPageEmailFieldLabel {
+    return Intl.message(
+      'Email',
+      name: 'signUpPageEmailFieldLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password`
+  String get signUpPagePasswordFieldLabel {
+    return Intl.message(
+      'Password',
+      name: 'signUpPagePasswordFieldLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Retype Password`
+  String get signupPageRetypePasswordLabel {
+    return Intl.message(
+      'Retype Password',
+      name: 'signupPageRetypePasswordLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `User is registered successfully`
+  String get signupSuccessMessage {
+    return Intl.message(
+      'User is registered successfully',
+      name: 'signupSuccessMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Already have an account?`
+  String get signupAlreadyHaveAnAccount {
+    return Intl.message(
+      'Already have an account?',
+      name: 'signupAlreadyHaveAnAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{fieldName} can not be empty`
+  String validationIsRequired(Object fieldName) {
+    return Intl.message(
+      '$fieldName can not be empty',
+      name: 'validationIsRequired',
+      desc: '',
+      args: [fieldName],
+    );
+  }
+
+  /// `{fieldName} is not a valid number`
+  String validationIsNumber(Object fieldName) {
+    return Intl.message(
+      '$fieldName is not a valid number',
+      name: 'validationIsNumber',
+      desc: '',
+      args: [fieldName],
+    );
+  }
+
+  /// `{fieldName} is not a valid email`
+  String validationIsEmail(Object fieldName) {
+    return Intl.message(
+      '$fieldName is not a valid email',
+      name: 'validationIsEmail',
+      desc: '',
+      args: [fieldName],
+    );
+  }
+
+  /// `Password is not matched with confirm password.`
+  String get validationPasswordNotEqualsToConfirmPassword {
+    return Intl.message(
+      'Password is not matched with confirm password.',
+      name: 'validationPasswordNotEqualsToConfirmPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{fieldName} length should be greater than {requiredMinLength}`
+  String validationMinLengthRequired(Object fieldName, Object requiredMinLength) {
+    return Intl.message(
+      '$fieldName length should be greater than $requiredMinLength',
+      name: 'validationMinLengthRequired',
+      desc: '',
+      args: [fieldName, requiredMinLength],
+    );
+  }
+
+  /// `{fieldName} length should be less than {requiredMaxLength}`
+  String validationMaxLengthRequired(Object fieldName, Object requiredMaxLength) {
+    return Intl.message(
+      '$fieldName length should be less than $requiredMaxLength',
+      name: 'validationMaxLengthRequired',
+      desc: '',
+      args: [fieldName, requiredMaxLength],
+    );
+  }
+
+  /// `Email is not valid`
+  String get validationEmailNotValid {
+    return Intl.message(
+      'Email is not valid',
+      name: 'validationEmailNotValid',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Phone Number is not valid`
+  String get validationPhoneNumberNotValid {
+    return Intl.message(
+      'Phone Number is not valid',
+      name: 'validationPhoneNumberNotValid',
       desc: '',
       args: [],
     );
