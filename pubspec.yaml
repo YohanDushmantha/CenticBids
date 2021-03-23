@@ -54,6 +54,12 @@ dependencies:
   firebase_messaging: ^9.0.0
   google_sign_in: ^4.5.1
 
+  #Local Notifications
+  flutter_local_notifications: 5.0.0
+
+  #Shared Preferences
+  shared_preferences: 2.0.5
+
   #Image downloading and caching
   cached_network_image: ^2.5.1
   extended_image: ^3.0.0
