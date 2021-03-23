@@ -1,6 +1,10 @@
 import 'dart:convert';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:centic_bids/core/features/presentation/pages/base_page.dart';
+import 'package:centic_bids/core/features/presentation/pages/basic_page_mixin.dart';
+import 'package:centic_bids/core/features/presentation/pages/error_handling_page_mixin.dart';
+import 'package:centic_bids/core/ui/widgets/widget_type.dart';
 import 'package:centic_bids/routes/router.gr.dart';
 import 'package:centic_bids/core/ui/widgets/bottom_sheet_progress_indicator/bottom_sheet_progress_indicator_helper.dart';
 import 'package:centic_bids/features/auctions/domain/entities/auction_item.dart';
@@ -16,22 +20,20 @@ import 'package:centic_bids/features/auctions/presentation/bloc/auctions/bloc.da
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:http/http.dart' as http;
 
-class AuctionsPage extends StatefulWidget {
+class AuctionsPage extends BasePage {
   AuctionsPage() {}
 
   @override
   _AuctionsPageState createState() => _AuctionsPageState();
 }
 
-class _AuctionsPageState extends State<AuctionsPage> {
+class _AuctionsPageState extends BaseState<AuctionsPage> with BasicPage, ErrorHandlingPageMixin {
   final AuctionsBloc auctionsBloc = di<AuctionsBloc>();
 
   final BottomSheetProgressIndicatorHelper bottomSheetProgressIndicatorHelper =
       di();
 
   final ScrollController controller = ScrollController();
-
-  String _token;
 
   @override
   void initState() {
@@ -60,6 +62,16 @@ class _AuctionsPageState extends State<AuctionsPage> {
                 parentContext: context)
             : bottomSheetProgressIndicatorHelper
                 .hideCircularProgressBar(context);
+
+        if(state is Error){
+          if (isAlive(state.runtimeError, context)) {
+            bottomSheetMessageHelper.showMessage(
+              type: WidgetType.ERROR,
+              message: state.runtimeError.message,
+              context: context,
+            );
+          }
+        }
       },
       builder: (context, state) {
         return SafeArea(
@@ -92,7 +104,7 @@ class _AuctionsPageState extends State<AuctionsPage> {
 
   _onItemSelectedCallback(AuctionItem auctionItem) {
     ExtendedNavigator.of(context)
-        .pushAuctionDetailPage(auction: auctionItem)
+        .pushAuctionDetailPage(auctionItem: auctionItem)
         .then((value) => {auctionsBloc.add(FetchAuctions(shouldReset: true))});
   }
 }

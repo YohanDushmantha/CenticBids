@@ -365,6 +365,36 @@ class S {
     );
   }
 
+  /// `You are not signed in`
+  String get profileYouAreNotSignedIn {
+    return Intl.message(
+      'You are not signed in',
+      name: 'profileYouAreNotSignedIn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign Out`
+  String get profileSignOut {
+    return Intl.message(
+      'Sign Out',
+      name: 'profileSignOut',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You are successfully Sign out`
+  String get signoutSuccessMessage {
+    return Intl.message(
+      'You are successfully Sign out',
+      name: 'signoutSuccessMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `{fieldName} can not be empty`
   String validationIsRequired(Object fieldName) {
     return Intl.message(

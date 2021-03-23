@@ -1,3 +1,4 @@
+import 'package:centic_bids/core/features/presentation/bloc/runtime_error.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
@@ -23,9 +24,10 @@ class Loading extends AuctionsState{
 }
 
 class Error extends AuctionsState{
-  Error({@required List<DocumentSnapshot> auctionList}): super(auctionList: auctionList);
+  final RuntimeError runtimeError;
+  Error({@required List<DocumentSnapshot> auctionList, this.runtimeError}): super(auctionList: auctionList);
   @override
-  List<Object> get props => [];
+  List<Object> get props => [runtimeError];
 }
 
 class AuctionLoaded extends AuctionsState{

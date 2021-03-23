@@ -10,6 +10,7 @@ class BaseTheme {
     final ThemeData base = ThemeData.light();
     return base.copyWith(
         primaryColor: colors.primary,
+
         accentColor: colors.accent,
 
         scaffoldBackgroundColor: colors.scaffoldBg,

@@ -10,8 +10,7 @@ import 'package:centic_bids/routes/router.gr.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class SplashPage extends StatefulWidget{
-
+class SplashPage extends StatefulWidget {
   @override
   _SplashPageState createState() => _SplashPageState();
 }
@@ -21,72 +20,38 @@ class _SplashPageState extends State<SplashPage> {
   final AppStates appStates = di();
 
   @override
-  void initState() {
-    final loggedInUserString = sharedPrefHelper.retrieve('loggedInUser');
-    if(loggedInUserString != null && loggedInUserString != ''){
+  void initState(){
+    loadLoggedInUser();
+    redirectToNextPage();
+    super.initState();
+  }
+
+  loadLoggedInUser() async {
+    final loggedInUserString = await sharedPrefHelper.retrieve('loggedInUser');
+    if (loggedInUserString != null && loggedInUserString != '') {
       final decodedValue = json.decode(loggedInUserString);
       final id = decodedValue['id'];
-      print('YD --> loading auth data id'+id);
       appStates.appUser = AppUser.fromJson(decodedValue, id);
     }
+  }
 
-    super.initState();
+  redirectToNextPage(){
+    Future.delayed(const Duration(milliseconds: 1000), () {
+      ExtendedNavigator.of(context).pop();
+      ExtendedNavigator.of(context).pushHomePage();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    var _currentIndex = 0;
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Title'),
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-          child: Column(
-            children: [
-              Center(
-                child: ElevatedButton(onPressed: (){
-                  ExtendedNavigator.of(context).pushHomePage();
-                }, child: Text('Next Page'),),
-              ),
-              Text('Headline 1', style: Theme.of(context).textTheme.headline1,),
-              Text('Headline 2', style: Theme.of(context).textTheme.headline2,),
-              Text('Headline 3', style: Theme.of(context).textTheme.headline3,),
-              Text('Headline 4', style: Theme.of(context).textTheme.headline4,),
-              Text('Headline 5', style: Theme.of(context).textTheme.headline5,),
-              Text('Headline 6', style: Theme.of(context).textTheme.headline6,),
-              Text('Subtitle 1', style: Theme.of(context).textTheme.subtitle1,),
-              Text('Subtitle 2', style: Theme.of(context).textTheme.subtitle2,),
-              Text('Body text 1', style: Theme.of(context).textTheme.bodyText1,),
-              Text('Body text 2', style: Theme.of(context).textTheme.bodyText2,),
-
-            ],
-          ),
-        ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: (event) => (event){}, // new
-        currentIndex: _currentIndex, // new
-        items: [
-          new BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text('Home'),
-          ),
-          new BottomNavigationBarItem(
-            icon: Icon(Icons.mail),
-            title: Text('Messages'),
-          ),
-          new BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              title: Text('Profile')
-          )
-        ],
-      ),
+    return Container(
+      constraints: BoxConstraints.expand(),
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage("assets/graphics/splash.png"), fit: BoxFit.cover)),
+      child: Container(),
     );
   }
 
-  void onTabTapped(int index) {
-
-  }
+  void onTabTapped(int index) {}
 }

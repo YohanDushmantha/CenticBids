@@ -4,17 +4,30 @@ import 'package:centic_bids/features/profile/presentation/pages/profile_page.dar
 import 'package:centic_bids/generated/l10n.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../injection_container.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final HomeBloc homeBloc = di<HomeBloc>();
 
-  final List<Widget> _children = [
-    AuctionsPage(),
-    AuctionsPage(),
-    ProfilePage()
-  ];
+  List<Widget> _children = [];
+
+  @override
+  void initState() {
+    _children = [
+      AuctionsPage(),
+      ProfilePage(stateUpdateCallback: (index) => _stateUpdateCallback(index),)
+    ];
+    super.initState();
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +41,7 @@ class HomePage extends StatelessWidget {
               appBar: AppBar(
                 title: Text(getTitle(context,state)),
                 automaticallyImplyLeading: false,
+                brightness: Brightness.dark,
               ),
               body: SafeArea(
                 child: _children[state.selectedIndex],
@@ -43,24 +57,22 @@ class HomePage extends StatelessWidget {
                     label: S.of(context).auctionPageTitle,
                   ),
                   new BottomNavigationBarItem(
-                    icon: Icon(Icons.shopping_cart),
-                    label: S.of(context).myBiddingsPageTitle,
-                  ),
-                  new BottomNavigationBarItem(
                       icon: Icon(Icons.person), label: S.of(context).accountPageTitle)
                 ],
               ));
         });
   }
-  
+
   String getTitle(BuildContext context,HomeState state){
     switch(state.selectedIndex){
-      case 0: 
+      case 0:
         return S.of(context).auctionPageTitle;
-      case 1: 
-        return S.of(context).myBiddingsPageTitle;
-      case 2:
+      case 1:
         return S.of(context).accountPageTitle;
     }
+  }
+
+  _stateUpdateCallback(int index){
+    homeBloc.add(SelectNavItem(selectedIndex: 0));
   }
 }

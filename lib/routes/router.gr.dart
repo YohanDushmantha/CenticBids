@@ -57,9 +57,11 @@ class Router extends RouterBase {
       );
     },
     AuctionDetailPage: (data) {
-      final args = data.getArgs<AuctionDetailPageArguments>(nullOk: false);
+      final args = data.getArgs<AuctionDetailPageArguments>(
+        orElse: () => AuctionDetailPageArguments(),
+      );
       return MaterialPageRoute<dynamic>(
-        builder: (context) => AuctionDetailPage(auction: args.auction),
+        builder: (context) => AuctionDetailPage(auctionItem: args.auctionItem),
         settings: data,
       );
     },
@@ -88,11 +90,11 @@ extension RouterExtendedNavigatorStateX on ExtendedNavigatorState {
   Future<dynamic> pushHomePage() => push<dynamic>(Routes.homePage);
 
   Future<dynamic> pushAuctionDetailPage({
-    @required AuctionItem auction,
+    AuctionItem auctionItem,
   }) =>
       push<dynamic>(
         Routes.auctionDetailPage,
-        arguments: AuctionDetailPageArguments(auction: auction),
+        arguments: AuctionDetailPageArguments(auctionItem: auctionItem),
       );
 
   Future<dynamic> pushSignInPage() => push<dynamic>(Routes.signInPage);
@@ -106,6 +108,6 @@ extension RouterExtendedNavigatorStateX on ExtendedNavigatorState {
 
 /// AuctionDetailPage arguments holder class
 class AuctionDetailPageArguments {
-  final AuctionItem auction;
-  AuctionDetailPageArguments({@required this.auction});
+  final AuctionItem auctionItem;
+  AuctionDetailPageArguments({this.auctionItem});
 }

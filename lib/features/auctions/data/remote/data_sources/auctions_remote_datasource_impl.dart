@@ -1,8 +1,10 @@
 import 'package:centic_bids/features/auctions/data/remote/data_sources/auctions_remote_datasource.dart';
+import 'package:centic_bids/features/auctions/domain/entities/auction_item.dart';
 import 'package:centic_bids/features/auctions/domain/entities/bid.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:centic_bids/features/auctions/domain/use_cases/fetch_auctions_usecase.dart' as fetchAuctionsUsecase;
 import 'package:centic_bids/features/auctions/domain/use_cases/bid_now_usecase.dart' as bidNowUsecase;
+import 'package:centic_bids/features/auctions/domain/use_cases/fetch_auction_usecase.dart' as fetchAuctionUsecase;
 
 class AuctionsRemoteDatasourceImpl extends AuctionsRemoteDatasource{
   @override
@@ -95,6 +97,16 @@ class AuctionsRemoteDatasourceImpl extends AuctionsRemoteDatasource{
     return null;
   }
 
+  }
+
+  @override
+  Future<AuctionItem> fetchAuction(fetchAuctionUsecase.Params params) async{
+    DocumentSnapshot auctionSnapshot =  await FirebaseFirestore?.instance?.collection('auctions')?.doc(params.auctionId)?.get();
+    if(auctionSnapshot != null){
+      return await AuctionItem?.fromJson(auctionSnapshot.data(), auctionSnapshot.id);
+    }else{
+      return null;
+    }
   }
   
 }

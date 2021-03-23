@@ -14,6 +14,7 @@ import 'package:centic_bids/features/onboarding/domain/entities/app_user.dart';
 import 'package:centic_bids/generated/l10n.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
 import 'package:centic_bids/themes/app_colors.dart' as appColors;
 import 'package:centic_bids/core/extensions/currency_extension.dart';
@@ -245,8 +246,9 @@ class _BiddingBottomSheetState extends State<BiddingBottomSheet> {
   }
 
   _onTapSuccessMessageSubmitBtn(){
-    ExtendedNavigator.of(context).pop();
-    ExtendedNavigator.of(context).pop();
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+      Navigator.of(context).popUntil((route) => route.isFirst);
+    });
   }
 }
 

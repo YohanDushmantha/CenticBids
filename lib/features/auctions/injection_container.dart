@@ -3,7 +3,9 @@ import 'package:centic_bids/features/auctions/data/remote/data_sources/auctions_
 import 'package:centic_bids/features/auctions/data/repositories/auctions_repository_impl.dart';
 import 'package:centic_bids/features/auctions/domain/repositories/auctions_repository.dart';
 import 'package:centic_bids/features/auctions/domain/use_cases/bid_now_usecase.dart';
+import 'package:centic_bids/features/auctions/domain/use_cases/fetch_auction_usecase.dart';
 import 'package:centic_bids/features/auctions/domain/use_cases/fetch_auctions_usecase.dart';
+import 'package:centic_bids/features/auctions/presentation/bloc/auction_detail/auction_detail_bloc.dart';
 import 'package:centic_bids/features/auctions/presentation/bloc/auctions/auctions_bloc.dart';
 import 'package:centic_bids/features/auctions/presentation/bloc/bidding_bottom_sheet/bidding_bloc.dart';
 import 'package:centic_bids/features/auctions/presentation/helpers/bidding_bottom_sheet_helper.dart';
@@ -18,10 +20,12 @@ Future<void> init(GetIt di) {
   di.registerLazySingleton(() => CountdownStyle());
 
   //Bloc
+  di.registerFactory<AuctionDetailBloc>(() => AuctionDetailBloc(fetchAuction: di()));
   di.registerFactory<AuctionsBloc>(() => AuctionsBloc(fetchAuctions: di()));
   di.registerFactory<BiddingBloc>(() => BiddingBloc(bidNowUsecase: di()));
 
   //Usecase
+  di.registerLazySingleton(() => FetchAuctionUsecase(repository: di()));
   di.registerLazySingleton(() => FetchAuctionsUsecase(repository: di()));
   di.registerLazySingleton(() => BidNowUsecase(repository: di()));
 

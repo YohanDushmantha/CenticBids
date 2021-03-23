@@ -41,6 +41,10 @@
   "biddingBidNowBtnTitle": "BID NOW",
   "biddingCloseBtnTitle": "NOT NOW",
 
+  "profileYouAreNotSignedIn": "You are not signed in",
+  "profileSignOut": "Sign Out",
+  "signoutSuccessMessage": "You are successfully Sign out",
+
   "validationIsRequired": "{fieldName} can not be empty",
   "validationIsNumber": "{fieldName} is not a valid number",
   "validationIsEmail" : "{fieldName} is not a valid email",

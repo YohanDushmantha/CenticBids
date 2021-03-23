@@ -84,6 +84,7 @@ class _SignUpPageState extends BaseState<SignUpPage>
        return Scaffold(
          appBar: AppBar(
            title: Text(S.of(context).signUpPageTitle),
+           brightness: Brightness.dark,
          ),
          body: InkWell(
              splashColor: Colors.transparent,

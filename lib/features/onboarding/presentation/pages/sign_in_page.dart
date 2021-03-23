@@ -70,6 +70,7 @@ class _SignInPageState extends BaseState<SignInPage>
           return Scaffold(
             appBar: AppBar(
               title: Text(S.of(context).signInPageTitle),
+              brightness: Brightness.dark,
             ),
             body: InkWell(
                 splashColor: Colors.transparent,
