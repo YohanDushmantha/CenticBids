@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:auto_route/auto_route.dart';
+import 'package:centic_bids/core/utils/shared_pref_helper.dart';
 import 'package:centic_bids/features/onboarding/domain/entities/app_user.dart';
 import 'package:centic_bids/routes/router.gr.dart';
 import 'package:centic_bids/core/features/presentation/pages/base_page.dart';
@@ -28,6 +31,7 @@ class _SignUpPageState extends BaseState<SignUpPage>
   final SignUpPageStyle styles = di();
   final SignUpBloc signUpBloc = di<SignUpBloc>();
   final AppStates appStates = di();
+  final SharedPrefHelper sharedPrefHelper = di();
 
   TextEditingController firstNameFieldController = TextEditingController();
   FocusNode firstNameFieldFocusNode = FocusNode();
@@ -189,7 +193,8 @@ class _SignUpPageState extends BaseState<SignUpPage>
   }
 
 
-  _onTapSuccessMessageSubmit(BuildContext context, AppUser appUser){
+  _onTapSuccessMessageSubmit(BuildContext context, AppUser appUser) async {
+    sharedPrefHelper.save('loggedInUser', json.encode(appUser.toJson()));
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       ExtendedNavigator.of(context).pop(appUser);
     });

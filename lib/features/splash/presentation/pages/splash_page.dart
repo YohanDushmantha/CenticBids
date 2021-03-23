@@ -1,9 +1,37 @@
+import 'dart:convert';
+import 'dart:math';
+
 import 'package:auto_route/auto_route.dart';
+import 'package:centic_bids/core/states/app_states.dart';
+import 'package:centic_bids/core/utils/shared_pref_helper.dart';
+import 'package:centic_bids/features/onboarding/domain/entities/app_user.dart';
+import 'package:centic_bids/injection_container.dart';
 import 'package:centic_bids/routes/router.gr.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class SplashPage extends StatelessWidget{
+class SplashPage extends StatefulWidget{
+
+  @override
+  _SplashPageState createState() => _SplashPageState();
+}
+
+class _SplashPageState extends State<SplashPage> {
+  final SharedPrefHelper sharedPrefHelper = di();
+  final AppStates appStates = di();
+
+  @override
+  void initState() {
+    final loggedInUserString = sharedPrefHelper.retrieve('loggedInUser');
+    if(loggedInUserString != null && loggedInUserString != ''){
+      final decodedValue = json.decode(loggedInUserString);
+      final id = decodedValue['id'];
+      print('YD --> loading auth data id'+id);
+      appStates.appUser = AppUser.fromJson(decodedValue, id);
+    }
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

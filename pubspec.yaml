@@ -35,6 +35,8 @@ dependencies:
   equatable: ^2.0.0
   # Handling functional programmings
   dartz: ^0.9.2
+  #http
+  http: ^0.13.1
 
   #Remote Api
   data_connection_checker: ^0.3.4
@@ -59,6 +61,9 @@ dependencies:
 
   #Shared Preferences
   shared_preferences: 2.0.5
+
+  #Encryption and decryption
+  encrypt: ^5.0.0-beta.1
 
   #Image downloading and caching
   cached_network_image: ^2.5.1

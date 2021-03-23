@@ -61,6 +61,8 @@ class FirebaseAuthRepositoryImpl extends FirebaseAuthRepository{
         if(appUser == null || appUser.uid == null || appUser.uid == ''){
           return Left(ServerFailure(Error(errorMessage: SERVER_FAILURE_MESSAGE)));
         }
+
+        await remoteDatasource?.updateDeviceToken(appUser);
         return Right(appUser);
       } on FirebaseAuthException catch (e){
         if (e.code == 'user-not-found') {

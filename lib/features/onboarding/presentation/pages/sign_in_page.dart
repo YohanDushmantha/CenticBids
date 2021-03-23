@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:centic_bids/core/states/app_states.dart';
+import 'package:centic_bids/core/utils/shared_pref_helper.dart';
 import 'package:centic_bids/features/onboarding/domain/entities/app_user.dart';
 import 'package:centic_bids/routes/router.gr.dart';
 import 'package:centic_bids/core/features/presentation/pages/base_page.dart';
@@ -26,6 +29,7 @@ class _SignInPageState extends BaseState<SignInPage>
   final SignInPageStyle styles = di();
   final SignInBloc signInBloc = di<SignInBloc>();
   final AppStates appStates = di();
+  final SharedPrefHelper sharedPrefHelper = di();
 
   TextEditingController emailFieldController = TextEditingController();
   FocusNode emailFieldFocusNode = FocusNode();
@@ -146,8 +150,9 @@ class _SignInPageState extends BaseState<SignInPage>
     });
   }
 
-  _onTapSuccessMessageSubmit(BuildContext context, AppUser appUser){
+  _onTapSuccessMessageSubmit(BuildContext context, AppUser appUser)async{
     print('YD -> ontap success message inside signin');
+    sharedPrefHelper.save('loggedInUser', json.encode(appUser.toJson()));
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       if(appUser != null){
         print('YD -> ontap success message inside signin with credentials');

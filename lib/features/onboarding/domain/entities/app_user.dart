@@ -24,6 +24,18 @@ class AppUser extends Equatable{
       isLoggedIn: json["isLoggedIn"] ?? false,
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "id": this.id,
+      "firstName": this.firstName,
+      "lastName": this.lastName,
+      "email": this.email,
+      "uid": this.uid,
+      "isLoggedIn": this.isLoggedIn,
+    };
+  }
+
 //
 
   // static AppUser fromDocumentSnapshot(DocumentSnapshot snapshot) {

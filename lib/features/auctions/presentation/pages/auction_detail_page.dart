@@ -147,6 +147,12 @@ class AuctionDetailPage extends StatelessWidget {
   }
 
   _onTapBid(BuildContext context) {
+    // User user = FirebaseAuth.instance.currentUser;
+    // if(user != null){
+    //   print('YD --> user not null '+user.email);
+    // }else{
+    //   print('YD --> user null ');
+    // }
     if(appStates.appUser != null){
       biddingBottomSheetHelper.show(context: context,
               auction: auction,

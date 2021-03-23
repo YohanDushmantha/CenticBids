@@ -8,5 +8,6 @@ abstract class FirebaseAuthRemoteDatasource{
   Future<UserCredential> createUserWithEmailAndPassword(registerUserWithFirebaseUsecase.Params params);
   Future<AppUser> createUserInFirestore(registerUserWithFirebaseUsecase.Params params, UserCredential userCredential);
   Future<UserCredential> signInWithEmailAndPassword(authenticateUserWithFirebaseUsecase.Params params);
+  Future<AppUser> updateDeviceToken(AppUser appUser);
   Future<AppUser> getUserFromFirestore(authenticateUserWithFirebaseUsecase.Params params, UserCredential userCredential);
 }

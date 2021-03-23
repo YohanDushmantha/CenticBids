@@ -6,6 +6,7 @@ import 'package:centic_bids/features/onboarding/domain/use_case/register_user_wi
     as registerUserWithFirebaseUsecase;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 class FirebaseAuthRemoteDatasourceImpl extends FirebaseAuthRemoteDatasource {
   @override
@@ -34,13 +35,17 @@ class FirebaseAuthRemoteDatasourceImpl extends FirebaseAuthRemoteDatasource {
   Future<AppUser> createUserInFirestore(
       registerUserWithFirebaseUsecase.Params params,
       UserCredential userCredential) async {
+    String firebaseToken = await FirebaseMessaging.instance.getToken();
     return await FirebaseFirestore.instance.collection('users').add({
       'email': userCredential?.user.email,
       'firstName': params?.firstName,
       'lastName': params?.lastName,
       'uid': userCredential?.user?.uid,
+      'deviceToken': firebaseToken
     }).then((value) => value.get().then((snapshot) => AppUser.fromJson(snapshot.data(), snapshot.id)));
   }
+
+
 
   @override
   Future<AppUser> getUserFromFirestore(authenticateUserWithFirebaseUsecase.Params params, UserCredential userCredential) async{
@@ -59,6 +64,14 @@ class FirebaseAuthRemoteDatasourceImpl extends FirebaseAuthRemoteDatasource {
 
     return await queryDocumentSnapshot?.reference?.get()?.then((documentSnapshot) => AppUser?.fromJson(documentSnapshot.data(), documentSnapshot.id));
 
+  }
+
+  @override
+  Future<AppUser> updateDeviceToken(AppUser appUser) async {
+    String firebaseToken = await FirebaseMessaging.instance.getToken();
+    await FirebaseFirestore?.instance?.collection('users')
+        ?.doc(appUser.id)
+        ?.update({'deviceToken': firebaseToken});
   }
 
 
