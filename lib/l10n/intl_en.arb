@@ -1,0 +1,66 @@
+{
+  "loading" : "LOADING",
+
+  "auctionPageTitle": "Auction",
+  "myBiddingsPageTitle": "My Biddings",
+  "accountPageTitle": "Account",
+
+  "basePrice": "Base Price",
+  "latestPrice": "Latest Price",
+  "viewMore": "VIEW MORE",
+
+  "auctionDetailPageTitle" : "Auction Detail",
+
+  "bid": "BID",
+
+  "infoMessageTitle": "Information Message",
+  "primaryMessageTitle": "Message",
+  "errorMessageTitle": "Error Message",
+  "successMessageTitle": "Success Message",
+  "warningMessageTitle": "Warning Message",
+  "messageSubmitBtnTitle": "OK",
+
+  "signInPageTitle": "Sign In",
+  "signInPageSubmitBtnTitle": "SIGN IN",
+  "signInPageEmailFieldLabel": "Email",
+  "signInPagePasswordFieldLabel": "Password",
+  "signinSuccessMessage": "User log in to the application successfully",
+  "signinRegister" : "Create Account",
+
+  "signUpPageTitle": "Sign Up",
+  "signUpPageSubmitBtnTitle": "SIGN UP",
+  "signUpPageFirstNameFieldLabel": "First Name",
+  "signUpPageLastNameFieldLabel": "Last Name",
+  "signUpPageEmailFieldLabel": "Email",
+  "signUpPagePasswordFieldLabel": "Password",
+  "signupPageRetypePasswordLabel": "Retype Password",
+  "signupSuccessMessage": "User is registered successfully",
+  "signupAlreadyHaveAnAccount": "Already have an account?",
+
+  "biddingPageTitle": "Bid Now",
+  "biddingBidNowBtnTitle": "BID NOW",
+  "biddingCloseBtnTitle": "NOT NOW",
+  "biddingSuccessMessage": "You have made a bid successfully",
+
+  "profileYouAreNotSignedIn": "You are not signed in",
+  "profileSignOut": "Sign Out",
+  "signoutSuccessMessage": "You are successfully Sign out",
+  "youAreNotSignedIn": "You are not signed in",
+
+  "mainBarBtnDefaultTitle": "SUBMIT",
+
+  "countDownSoldOut": "Sold Out",
+
+  "appExitMessageTitle" : "Are You Sure?",
+  "appExitMessageDetail" : "Do you want to exit the app?",
+  "appExitPositiveBtnText" : "Yes",
+
+  "validationIsRequired": "{fieldName} can not be empty",
+  "validationIsNumber": "{fieldName} is not a valid number",
+  "validationIsEmail" : "{fieldName} is not a valid email",
+  "validationPasswordNotEqualsToConfirmPassword" : "Password is not matched with confirm password.",
+  "validationMinLengthRequired": "{fieldName} length should be greater than {requiredMinLength}",
+  "validationMaxLengthRequired": "{fieldName} length should be less than {requiredMaxLength}",
+  "validationEmailNotValid": "Email is not valid",
+  "validationPhoneNumberNotValid": "Phone Number is not valid"
+}
