@@ -1,12 +1,10 @@
 import 'dart:typed_data';
 
 import 'package:encrypt/encrypt.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class CryptoHelper {
-
-  final  String WalletKey = "SgVkXp2s5v8y/B?E";
-  final byteList = [0,1,2,3,4,5,6,7,8,9,0,1,2,3,4,5];
+  final String WalletKey = "SgVkXp2s5v8y/B?E";
+  final byteList = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5];
 
   String aes128Encode(String params) {
     final key = Key.fromUtf8(WalletKey);
@@ -52,5 +50,4 @@ class CryptoHelper {
     print(" Decrepted => " + decrypted);
     return decrypted;
   }
-
 }

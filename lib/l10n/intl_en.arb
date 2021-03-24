@@ -40,10 +40,20 @@
   "biddingPageTitle": "Bid Now",
   "biddingBidNowBtnTitle": "BID NOW",
   "biddingCloseBtnTitle": "NOT NOW",
+  "biddingSuccessMessage": "You have made a bid successfully",
 
   "profileYouAreNotSignedIn": "You are not signed in",
   "profileSignOut": "Sign Out",
   "signoutSuccessMessage": "You are successfully Sign out",
+  "youAreNotSignedIn": "You are not signed in",
+
+  "mainBarBtnDefaultTitle": "SUBMIT",
+
+  "countDownSoldOut": "Sold Out",
+
+  "appExitMessageTitle" : "Are You Sure?",
+  "appExitMessageDetail" : "Do you want to exit the app?",
+  "appExitPositiveBtnText" : "Yes",
 
   "validationIsRequired": "{fieldName} can not be empty",
   "validationIsNumber": "{fieldName} is not a valid number",

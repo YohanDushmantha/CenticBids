@@ -1,21 +1,18 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'crypto_helper.dart';
-
-class SharedPrefHelper{
+class SharedPrefHelper {
   final SharedPreferences sharedPreferences;
-  //final CryptoHelper cryptoHelper;
   SharedPrefHelper({this.sharedPreferences});
 
   save(String key, String value) {
     sharedPreferences.setString(key, value);
   }
 
-  clear(String key){
+  clear(String key) {
     sharedPreferences.remove(key);
   }
 
-  clearAll(){
+  clearAll() {
     sharedPreferences.clear();
   }
 

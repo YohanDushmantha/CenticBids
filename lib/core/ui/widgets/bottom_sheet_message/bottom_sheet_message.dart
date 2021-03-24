@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:centic_bids/themes/app_colors.dart' as appColors;
 import 'package:flutter/material.dart';
 
-class BottomSheetMessage extends StatelessWidget{
+class BottomSheetMessage extends StatelessWidget {
   final BottomSheetMessageStyles styles = di();
   final WidgetType type;
   final String title;
@@ -19,42 +19,43 @@ class BottomSheetMessage extends StatelessWidget{
 
   BottomSheetMessage(
       {this.title,
-        @required this.type,
-        @required this.message,
-        this.sumbitButtonTitle,
-        this.onTapSubmitCallback,
-        this.parentContext,
-        this.isDismissible});
+      @required this.type,
+      @required this.message,
+      this.sumbitButtonTitle,
+      this.onTapSubmitCallback,
+      this.parentContext,
+      this.isDismissible});
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.only(topLeft: Radius.circular(24),
-          topRight: Radius.circular(24)),
+      borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(24), topRight: Radius.circular(24)),
       child: Container(
         color: styles.bg,
         padding: const EdgeInsets.all(24.0),
         child: Wrap(
           children: <Widget>[
-            isDismissible == true ?  Align(
-              alignment: Alignment.centerRight,
-              child: InkWell(
-                child: Icon(
-                    Icons.close
-                ),
-                onTap: () {Navigator.pop(context);},
-              ),
-            ) : Container(),
+            isDismissible == true
+                ? Align(
+                    alignment: Alignment.centerRight,
+                    child: InkWell(
+                      child: Icon(Icons.close),
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  )
+                : Container(),
             Center(
               child: Padding(
-                padding: const EdgeInsets.only(top : 16.0),
+                padding: const EdgeInsets.only(top: 16.0),
                 child: Center(
                     child: Text(
-                      _getTitle(context, title),
-                      style: Theme.of(context).textTheme.headline2,
-                      textAlign: TextAlign.center,
-                    )
-                ),
+                  _getTitle(context, title),
+                  style: Theme.of(context).textTheme.headline2,
+                  textAlign: TextAlign.center,
+                )),
               ),
             ),
             Center(
@@ -64,9 +65,7 @@ class BottomSheetMessage extends StatelessWidget{
                   message,
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.headline3.copyWith(
-                    color: styles.bodyTextColor,
-                    fontWeight: FontWeight.w500
-                  ),
+                      color: styles.bodyTextColor, fontWeight: FontWeight.w500),
                 ),
               ),
             ),
@@ -77,11 +76,11 @@ class BottomSheetMessage extends StatelessWidget{
     );
   }
 
-  String _getTitle(BuildContext context, String title){
-    if(title != null && title.isNotEmpty){
+  String _getTitle(BuildContext context, String title) {
+    if (title != null && title.isNotEmpty) {
       return title;
-    }else{
-      switch(type){
+    } else {
+      switch (type) {
         case WidgetType.PRIMARY:
           return S.of(context).primaryMessageTitle;
         case WidgetType.INFO:
@@ -99,12 +98,19 @@ class BottomSheetMessage extends StatelessWidget{
   Widget _submitButton(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      child: MainBarButton(type: type,
-          title: sumbitButtonTitle ?? S.of(context).messageSubmitBtnTitle, onTapCallback: onTapSubmitCallback != null ? (){onTapSubmitCallback(); closeCallback();} : closeCallback),
+      child: MainBarButton(
+          type: type,
+          title: sumbitButtonTitle ?? S.of(context).messageSubmitBtnTitle,
+          onTapCallback: onTapSubmitCallback != null
+              ? () {
+                  onTapSubmitCallback();
+                  closeCallback();
+                }
+              : closeCallback),
     );
   }
 
-  closeCallback(){
+  closeCallback() {
     Navigator.pop(parentContext);
   }
 }
@@ -113,7 +119,7 @@ class BottomSheetMessageStyles {
   final bg = appColors.offWhite;
   final bodyTextColor = appColors.darkGray;
 
-  config(WidgetType type){
+  config(WidgetType type) {
     // switch(type){
     //   case WidgetType.PRIMARY:
     //     background = appColors.primary;
@@ -132,5 +138,4 @@ class BottomSheetMessageStyles {
     //     break;
     // }
   }
-
 }

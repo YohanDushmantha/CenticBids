@@ -1,11 +1,14 @@
 import '../validation_config.dart';
 
-class EmailValidationConfig extends ValidationConfig{
+class EmailValidationConfig extends ValidationConfig {
   EmailValidationConfig({
     String customErrorMessage,
     String customSuccessMessage,
     bool successMessageIsRequired,
-  }) : super(customErrorMessage  :customErrorMessage,customSuccessMessage : customSuccessMessage,successMessageIsRequired : successMessageIsRequired);
+  }) : super(
+            customErrorMessage: customErrorMessage,
+            customSuccessMessage: customSuccessMessage,
+            successMessageIsRequired: successMessageIsRequired);
 
   @override
   List<Object> get props => super.props;

@@ -6,18 +6,17 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
-class FetchAuctionUsecase extends UseCase<AuctionItem, Params>{
+class FetchAuctionUsecase extends UseCase<AuctionItem, Params> {
   final AuctionsRepository repository;
 
   FetchAuctionUsecase({this.repository});
   @override
-  Future<Either<Failure, AuctionItem>> call(Params params) async{
+  Future<Either<Failure, AuctionItem>> call(Params params) async {
     return await repository.fetchAuction(params);
   }
-
 }
 
-class Params extends Equatable{
+class Params extends Equatable {
   final String auctionId;
 
   Params({@required this.auctionId});

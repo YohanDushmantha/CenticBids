@@ -9,7 +9,6 @@ import 'package:centic_bids/features/auctions/presentation/bloc/auction_detail/a
 import 'package:centic_bids/features/auctions/presentation/bloc/auctions/auctions_bloc.dart';
 import 'package:centic_bids/features/auctions/presentation/bloc/bidding_bottom_sheet/bidding_bloc.dart';
 import 'package:centic_bids/features/auctions/presentation/helpers/bidding_bottom_sheet_helper.dart';
-import 'package:centic_bids/features/auctions/presentation/pages/bidding_bottom_sheet.dart';
 import 'package:centic_bids/features/auctions/presentation/widgets/auction_item_tile.dart';
 import 'package:centic_bids/features/auctions/presentation/widgets/countdown.dart';
 import 'package:get_it/get_it.dart';

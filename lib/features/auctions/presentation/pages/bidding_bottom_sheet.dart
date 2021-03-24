@@ -10,9 +10,7 @@ import 'package:centic_bids/core/ui/widgets/widget_type.dart';
 import 'package:centic_bids/features/auctions/domain/entities/auction_item.dart';
 import 'package:centic_bids/features/auctions/presentation/bloc/bidding_bottom_sheet/bidding_bloc.dart';
 import 'package:centic_bids/features/auctions/presentation/bloc/bidding_bottom_sheet/bloc.dart';
-import 'package:centic_bids/features/onboarding/domain/entities/app_user.dart';
 import 'package:centic_bids/generated/l10n.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
@@ -35,14 +33,16 @@ class BiddingBottomSheet extends StatefulWidget {
 class _BiddingBottomSheetState extends State<BiddingBottomSheet> {
   final BiddingBloc biddingBloc = di<BiddingBloc>();
   final BottomSheetMessageHelper bottomSheetMessageHelper = di();
-  final BottomSheetProgressIndicatorHelper bottomSheetProgressIndicatorHelper = di();
+  final BottomSheetProgressIndicatorHelper bottomSheetProgressIndicatorHelper =
+      di();
   final AppStates appStates = di();
   Timer timer;
 
   @override
   void initState() {
-    biddingBloc
-        .add(SetBiddingAmount(biddingAmount: widget?.auction?.latestPrice, latestBid: widget?.auction?.latestPrice));
+    biddingBloc.add(SetBiddingAmount(
+        biddingAmount: widget?.auction?.latestPrice,
+        latestBid: widget?.auction?.latestPrice));
     super.initState();
   }
 
@@ -52,10 +52,12 @@ class _BiddingBottomSheetState extends State<BiddingBottomSheet> {
         cubit: biddingBloc,
         listener: (context, state) {
           state is LoadingBidNow
-              ? bottomSheetProgressIndicatorHelper.showCircularProgressBar(parentContext: context)
-              : bottomSheetProgressIndicatorHelper.hideCircularProgressBar(context);
+              ? bottomSheetProgressIndicatorHelper.showCircularProgressBar(
+                  parentContext: context)
+              : bottomSheetProgressIndicatorHelper
+                  .hideCircularProgressBar(context);
 
-          if(state is BiddingError){
+          if (state is BiddingError) {
             bottomSheetMessageHelper.showMessage(
               type: WidgetType.ERROR,
               message: state?.runtimeError?.message,
@@ -63,13 +65,12 @@ class _BiddingBottomSheetState extends State<BiddingBottomSheet> {
             );
           }
 
-          if(state is LoadedBidNow){
+          if (state is LoadedBidNow) {
             bottomSheetMessageHelper.showMessage(
-              type: WidgetType.SUCCESS,
-              message: 'You have made a bid successfully',
-              context: context,
-              onTapSubmitCallback: () => _onTapSuccessMessageSubmitBtn()
-            );
+                type: WidgetType.SUCCESS,
+                message: S.of(context).biddingSuccessMessage,
+                context: context,
+                onTapSubmitCallback: () => _onTapSuccessMessageSubmitBtn());
           }
         },
         builder: (context, state) {
@@ -220,7 +221,8 @@ class _BiddingBottomSheetState extends State<BiddingBottomSheet> {
   }
 
   _onTapBidNow() {
-    biddingBloc.add(BidNowEvent(appUser: appStates?.appUser, auction: widget?.auction));
+    biddingBloc.add(
+        BidNowEvent(appUser: appStates?.appUser, auction: widget?.auction));
   }
 
   _onTapIncrement() {
@@ -245,7 +247,7 @@ class _BiddingBottomSheetState extends State<BiddingBottomSheet> {
     timer?.cancel();
   }
 
-  _onTapSuccessMessageSubmitBtn(){
+  _onTapSuccessMessageSubmitBtn() {
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
       Navigator.of(context).popUntil((route) => route.isFirst);
     });

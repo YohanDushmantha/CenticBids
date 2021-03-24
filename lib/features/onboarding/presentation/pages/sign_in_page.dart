@@ -14,7 +14,6 @@ import 'package:centic_bids/core/ui/widgets/widget_type.dart';
 import 'package:centic_bids/features/onboarding/presentation/bloc/sign_in/bloc.dart';
 import 'package:centic_bids/generated/l10n.dart';
 import 'package:centic_bids/injection_container.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,11 +41,12 @@ class _SignInPageState extends BaseState<SignInPage>
         cubit: signInBloc,
         listener: (context, state) {
           state is Loading
-              ? bottomSheetProgressIndicatorHelper.showCircularProgressBar(parentContext: context)
-              : bottomSheetProgressIndicatorHelper.hideCircularProgressBar(context);
+              ? bottomSheetProgressIndicatorHelper.showCircularProgressBar(
+                  parentContext: context)
+              : bottomSheetProgressIndicatorHelper
+                  .hideCircularProgressBar(context);
 
-
-          if(state is Error){
+          if (state is Error) {
             if (isAlive(state.runtimeError, context)) {
               bottomSheetMessageHelper.showMessage(
                 type: WidgetType.ERROR,
@@ -56,14 +56,14 @@ class _SignInPageState extends BaseState<SignInPage>
             }
           }
 
-          if(state is AuthenticateWithUsernameAndPasswordSuccess){
+          if (state is AuthenticateWithUsernameAndPasswordSuccess) {
             appStates.appUser = state.appUser;
             bottomSheetMessageHelper.showMessage(
                 type: WidgetType.SUCCESS,
                 message: S.of(context).signinSuccessMessage,
                 context: context,
-                onTapSubmitCallback: () => _onTapSuccessMessageSubmit(context, state.appUser)
-            );
+                onTapSubmitCallback: () =>
+                    _onTapSuccessMessageSubmit(context, state.appUser));
           }
         },
         builder: (context, state) {
@@ -110,13 +110,15 @@ class _SignInPageState extends BaseState<SignInPage>
                 isObsecureText: true,
                 onSubmitCallback: (text) => _onTapSubmit(context),
               ),
-              SizedBox(height: 16,),
-              TextButton(onPressed: () => _onTapRegister(context), child: Text(
-                  S.of(context).signinRegister,
-                style: TextStyle(
-                  fontSize: 18
-                ),
-              ))
+              SizedBox(
+                height: 16,
+              ),
+              TextButton(
+                  onPressed: () => _onTapRegister(context),
+                  child: Text(
+                    S.of(context).signinRegister,
+                    style: TextStyle(fontSize: 18),
+                  ))
             ],
           ),
         ),
@@ -141,27 +143,22 @@ class _SignInPageState extends BaseState<SignInPage>
     signInBloc.add(AuthenticateWithUsernameAndPasswordEvent(
         context: context,
         email: emailFieldController.text?.trim(),
-        password: passwordFieldController?.text?.trim()
-    ));
+        password: passwordFieldController?.text?.trim()));
   }
 
-  _onTapRegister(BuildContext context){
-    ExtendedNavigator.of(context).pushSignUpPage().then((appUser) => {
-      _onTapSuccessMessageSubmit(context, appUser)
-    });
+  _onTapRegister(BuildContext context) {
+    ExtendedNavigator.of(context)
+        .pushSignUpPage()
+        .then((appUser) => {_onTapSuccessMessageSubmit(context, appUser)});
   }
 
-  _onTapSuccessMessageSubmit(BuildContext context, AppUser appUser)async{
-    print('YD -> ontap success message inside signin');
+  _onTapSuccessMessageSubmit(BuildContext context, AppUser appUser) async {
     sharedPrefHelper.save('loggedInUser', json.encode(appUser.toJson()));
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      if(appUser != null){
-        print('YD -> ontap success message inside signin with credentials');
+      if (appUser != null) {
         Navigator.of(context).pop(appUser);
       }
     });
-
-
   }
 }
 

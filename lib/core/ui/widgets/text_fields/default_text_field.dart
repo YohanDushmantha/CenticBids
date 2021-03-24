@@ -132,13 +132,11 @@ class DefaultTextField extends StatelessWidget {
       onTap: onTapCallback,
       readOnly: readOnly != null ? readOnly : false,
       onFieldSubmitted: (value) {
-        print('on submit inside default text field --> $value');
         if (textInputAction == TextInputAction.next &&
             focusNode != null &&
             nextFocusNode != null) {
           _fieldFocusChange(context, focusNode, nextFocusNode);
         } else {
-          print('else');
           SchedulerBinding.instance.addPostFrameCallback((timeStamp) async {
             FocusScope.of(context).unfocus();
           });
@@ -150,9 +148,7 @@ class DefaultTextField extends StatelessWidget {
       inputFormatters: inputFormatters ?? [],
       obscureText: isObsecureText ?? false,
       autofocus: isAutoFocus ?? false,
-      decoration: InputDecoration(
-        border: InputBorder.none
-      ),
+      decoration: InputDecoration(border: InputBorder.none),
     );
   }
 

@@ -11,7 +11,6 @@ import 'package:flutter/cupertino.dart';
 
 import '../currency_helper.dart';
 
-
 class Validator {
   CurrencyHelper currencyHelper = di();
   ValidationResult validateFields(
@@ -57,14 +56,15 @@ class Validator {
       if (!result.isValid) {
         return result;
       }
-    }else if (validationConfig is EmailValidationConfig){
+    } else if (validationConfig is EmailValidationConfig) {
       var result = _isEmail(fieldName, value, validationConfig, context);
-      if(!result.isValid){
+      if (!result.isValid) {
         return result;
       }
-    }else if(validationConfig is PasswordMatchValidationConfig){
-      var result = _isPasswordMatched(fieldName, value, validationConfig, context);
-      if(!result.isValid){
+    } else if (validationConfig is PasswordMatchValidationConfig) {
+      var result =
+          _isPasswordMatched(fieldName, value, validationConfig, context);
+      if (!result.isValid) {
         return result;
       }
     }
@@ -90,7 +90,8 @@ class Validator {
 
   ValidationResult _isNumber(String fieldName, String value,
       NumberValidationConfig validationConfig, BuildContext context) {
-    var parsedValue = double.tryParse(currencyHelper.trimCommaOfString(value)) ?? null;
+    var parsedValue =
+        double.tryParse(currencyHelper.trimCommaOfString(value)) ?? null;
     if (parsedValue != null) {
       return ValidationResult(
           isValid: true,
@@ -105,8 +106,11 @@ class Validator {
     }
   }
 
-  ValidationResult _isEmail(String fieldName, String value,EmailValidationConfig validationConfig, BuildContext context) {
-    bool isValid = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value);
+  ValidationResult _isEmail(String fieldName, String value,
+      EmailValidationConfig validationConfig, BuildContext context) {
+    bool isValid = RegExp(
+            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        .hasMatch(value);
     if (isValid) {
       return ValidationResult(
           isValid: true,
@@ -123,7 +127,11 @@ class Validator {
 
   ValidationResult _isPasswordMatched(String fieldName, String value,
       PasswordMatchValidationConfig validationConfig, BuildContext context) {
-    if (value != null && value != '' && validationConfig.confirmPassword != null && validationConfig.confirmPassword != '' && value == validationConfig.confirmPassword) {
+    if (value != null &&
+        value != '' &&
+        validationConfig.confirmPassword != null &&
+        validationConfig.confirmPassword != '' &&
+        value == validationConfig.confirmPassword) {
       return ValidationResult(
           isValid: true,
           message: validationConfig.successMessageIsRequired ?? false
@@ -136,6 +144,4 @@ class Validator {
               S.of(context).validationPasswordNotEqualsToConfirmPassword);
     }
   }
-
-
 }

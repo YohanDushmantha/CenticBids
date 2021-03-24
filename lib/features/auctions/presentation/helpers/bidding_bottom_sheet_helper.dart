@@ -1,19 +1,15 @@
 import 'package:centic_bids/features/auctions/domain/entities/auction_item.dart';
 import 'package:centic_bids/features/auctions/presentation/pages/bidding_bottom_sheet.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class BiddingBottomSheetHelper{
-
+class BiddingBottomSheetHelper {
   show(
-      {
-        Function(String) onTapSubmitCallback,
-        BuildContext context,
-        bool isDismissible,
-        bool isDraggable,
-        AuctionItem auction
-      }) {
+      {Function(String) onTapSubmitCallback,
+      BuildContext context,
+      bool isDismissible,
+      bool isDraggable,
+      AuctionItem auction}) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       showModalBottomSheet(
           backgroundColor: Colors.transparent,

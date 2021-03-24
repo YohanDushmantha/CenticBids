@@ -4,10 +4,7 @@ import 'package:centic_bids/core/ui/widgets/widget_type.dart';
 import 'package:centic_bids/features/auctions/domain/entities/auction_item.dart';
 import 'package:centic_bids/generated/l10n.dart';
 import 'package:centic_bids/injection_container.dart';
-import 'package:centic_bids/routes/router.gr.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:centic_bids/features/auctions/presentation/widgets/countdown.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -96,7 +93,9 @@ class AuctionItemTile extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 16,),
+                SizedBox(
+                  height: 16,
+                ),
                 Row(
                   children: [
                     Container(
@@ -113,9 +112,10 @@ class AuctionItemTile extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Countdown(
-                              timestamp: item.clearanceTime),
-                          SizedBox(height: 16,),
+                          Countdown(timestamp: item.clearanceTime),
+                          SizedBox(
+                            height: 16,
+                          ),
                           SmallOutlineButton(
                             type: WidgetType.PRIMARY,
                             title: S.of(context).viewMore,
@@ -124,7 +124,6 @@ class AuctionItemTile extends StatelessWidget {
                         ],
                       ),
                     )
-
                   ],
                 )
               ],

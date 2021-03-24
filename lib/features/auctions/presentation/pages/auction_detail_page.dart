@@ -32,7 +32,8 @@ class AuctionDetailPage extends BasePage {
   _AuctionDetailPageState createState() => _AuctionDetailPageState();
 }
 
-class _AuctionDetailPageState extends BaseState<AuctionDetailPage> with BasicPage, ErrorHandlingPageMixin {
+class _AuctionDetailPageState extends BaseState<AuctionDetailPage>
+    with BasicPage, ErrorHandlingPageMixin {
   final BottomSheetProgressIndicatorHelper bottomSheetProgressIndicatorHelper =
       di();
 
@@ -55,96 +56,136 @@ class _AuctionDetailPageState extends BaseState<AuctionDetailPage> with BasicPag
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuctionDetailBloc, AuctionDetailState>(
-      cubit: auctionDetailBloc,
-         listener: (context, state){
-           state is Loading
-               ? bottomSheetProgressIndicatorHelper.showCircularProgressBar(
-               parentContext: context)
-               : bottomSheetProgressIndicatorHelper
-               .hideCircularProgressBar(context);
+        cubit: auctionDetailBloc,
+        listener: (context, state) {
+          state is Loading
+              ? bottomSheetProgressIndicatorHelper.showCircularProgressBar(
+                  parentContext: context)
+              : bottomSheetProgressIndicatorHelper
+                  .hideCircularProgressBar(context);
 
-           if(state is Error){
-             if (isAlive(state.runtimeError, context)) {
-               bottomSheetMessageHelper.showMessage(
-                 type: WidgetType.ERROR,
-                 message: state.runtimeError.message,
-                 context: context,
-               );
-             }
-           }
-
-         },
-      builder: (context,state){
-        return Scaffold(
-          appBar: AppBar(
-            title: Text(S.of(context).auctionDetailPageTitle),
-            brightness: Brightness.dark,
-          ),
-          body: state.auctionItem != null ? SingleChildScrollView(
-            child: Container(
-              child: Column(
-                children: [
-                  Container(
-                      padding: EdgeInsets.only(top: 0, bottom: 0), child: _slider(context, state)),
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 16.0),
-                          child: Text(state.auctionItem.title, textAlign: TextAlign.start, style: Theme.of(context).textTheme.headline3.copyWith(fontWeight: FontWeight.w500),),
-                        ),
-                        Row(
-                          children: [
-                            Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+          if (state is Error) {
+            if (isAlive(state.runtimeError, context)) {
+              bottomSheetMessageHelper.showMessage(
+                type: WidgetType.ERROR,
+                message: state.runtimeError.message,
+                context: context,
+              );
+            }
+          }
+        },
+        builder: (context, state) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(S.of(context).auctionDetailPageTitle),
+              brightness: Brightness.dark,
+            ),
+            body: state.auctionItem != null
+                ? SingleChildScrollView(
+                    child: Container(
+                      child: Column(
+                        children: [
+                          Container(
+                              padding: EdgeInsets.only(top: 0, bottom: 0),
+                              child: _slider(context, state)),
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 16.0),
+                                  child: Text(
+                                    state.auctionItem.title,
+                                    textAlign: TextAlign.start,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline3
+                                        .copyWith(fontWeight: FontWeight.w500),
+                                  ),
+                                ),
+                                Row(
                                   children: [
-                                    Text(S.of(context).basePrice, style: Theme.of(context).textTheme.headline4.copyWith(color: appColors.darkGray),),
-                                    Text(
-                                      state.auctionItem.basePrice.toString().toCurrency(),
-                                      textAlign: TextAlign.right,
-                                      style: Theme.of(context).textTheme.headline3.copyWith(color: appColors.red),
-                                    )
+                                    Expanded(
+                                        child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          S.of(context).basePrice,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline4
+                                              .copyWith(
+                                                  color: appColors.darkGray),
+                                        ),
+                                        Text(
+                                          state.auctionItem.basePrice
+                                              .toString()
+                                              .toCurrency(),
+                                          textAlign: TextAlign.right,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline3
+                                              .copyWith(color: appColors.red),
+                                        )
+                                      ],
+                                    )),
+                                    Expanded(
+                                        child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          S.of(context).latestPrice,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline4
+                                              .copyWith(
+                                                  color: appColors.darkGray),
+                                        ),
+                                        Text(
+                                          state.auctionItem.latestPrice
+                                              .toString()
+                                              .toCurrency(),
+                                          textAlign: TextAlign.right,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline3
+                                              .copyWith(color: appColors.green),
+                                        )
+                                      ],
+                                    ))
                                   ],
-                                )),
-                            Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Text(S.of(context).latestPrice, style: Theme.of(context).textTheme.headline4.copyWith(color: appColors.darkGray),),
-                                    Text(
-                                      state.auctionItem.latestPrice.toString().toCurrency(),
-                                      textAlign: TextAlign.right,
-                                      style: Theme.of(context).textTheme.headline3.copyWith(color: appColors.green),
-                                    )
-                                  ],
-                                ))
-                          ],
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 16.0),
-                          child: Countdown(timestamp: state.auctionItem?.clearanceTime),
-                        ),
-                        Text(state.auctionItem?.description, style: Theme.of(context).textTheme.bodyText1,),
-                      ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 16.0),
+                                  child: Countdown(
+                                      timestamp:
+                                          state.auctionItem?.clearanceTime),
+                                ),
+                                Text(
+                                  state.auctionItem?.description,
+                                  style: Theme.of(context).textTheme.bodyText1,
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   )
-                ],
-              ),
-            ),
-          ) : Container(),
-          bottomNavigationBar: _submitBtn(context, state),
-        );
-      });
-
+                : Container(),
+            bottomNavigationBar: _submitBtn(context, state),
+          );
+        });
   }
 
   Widget _slider(BuildContext context, AuctionDetailState state) {
     return CarouselSlider(
       options: CarouselOptions(
-        aspectRatio: 4/3,
+        aspectRatio: 4 / 3,
         viewportFraction: 1,
         initialPage: 0,
         enableInfiniteScroll: true,
@@ -181,40 +222,30 @@ class _AuctionDetailPageState extends BaseState<AuctionDetailPage> with BasicPag
   }
 
   _onTapBid(BuildContext context, AuctionDetailState state) {
-    // User user = FirebaseAuth.instance.currentUser;
-    // if(user != null){
-    //   print('YD --> user not null '+user.email);
-    // }else{
-    //   print('YD --> user null ');
-    // }
-    if(appStates.appUser != null){
-      biddingBottomSheetHelper.show(context: context,
-              auction: state.auctionItem,
-              isDismissible: true,
-              isDraggable: true,
-          onTapSubmitCallback: (value) => {
-        _onSubmitBiddingBottomSheet(value)
-      });
-    }else{
-      ExtendedNavigator.of(context).pushSignInPage().then((appUser) => _returnFromSignUpPage(context,appUser, state.auctionItem));
+    if (appStates.appUser != null) {
+      biddingBottomSheetHelper.show(
+          context: context,
+          auction: state.auctionItem,
+          isDismissible: true,
+          isDraggable: true,
+          onTapSubmitCallback: (value) => {_onSubmitBiddingBottomSheet(value)});
+    } else {
+      ExtendedNavigator.of(context).pushSignInPage().then((appUser) =>
+          _returnFromSignUpPage(context, appUser, state.auctionItem));
     }
   }
 
-  _returnFromSignUpPage(BuildContext context, AppUser appUser, AuctionItem auctionItem){
-    print('YD -> return from signup page');
-    if(appUser != null){
-      print('YD -> return from signup page'+appUser?.email);
-      biddingBottomSheetHelper.show(context: context,
+  _returnFromSignUpPage(
+      BuildContext context, AppUser appUser, AuctionItem auctionItem) {
+    if (appUser != null) {
+      biddingBottomSheetHelper.show(
+          context: context,
           auction: auctionItem,
           isDismissible: true,
           isDraggable: true,
-          onTapSubmitCallback: (value) => {
-            _onSubmitBiddingBottomSheet(value)
-          });
+          onTapSubmitCallback: (value) => {_onSubmitBiddingBottomSheet(value)});
     }
   }
 
-  _onSubmitBiddingBottomSheet(String value){
-
-  }
+  _onSubmitBiddingBottomSheet(String value) {}
 }

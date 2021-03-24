@@ -1,11 +1,10 @@
 import 'package:equatable/equatable.dart';
 
-class NotificationPayloadModel extends Equatable{
+class NotificationPayloadModel extends Equatable {
   final String type;
-  final Map<String,dynamic> data;
+  final Map<String, dynamic> data;
 
-  NotificationPayloadModel({this.type,this.data});
-
+  NotificationPayloadModel({this.type, this.data});
 
   factory NotificationPayloadModel.fromJson(dynamic json) {
     return NotificationPayloadModel(
@@ -22,6 +21,5 @@ class NotificationPayloadModel extends Equatable{
   }
 
   @override
-  List<Object> get props => [type,data];
-
+  List<Object> get props => [type, data];
 }

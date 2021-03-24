@@ -10,7 +10,6 @@ import 'package:centic_bids/features/onboarding/domain/repositories/firebase_aut
 import 'package:centic_bids/generated/l10n.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:centic_bids/core/network/response/error.dart';

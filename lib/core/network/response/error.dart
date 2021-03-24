@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class Error extends Equatable{
-
+class Error extends Equatable {
   final String errorMessage;
 
   Error({this.errorMessage});

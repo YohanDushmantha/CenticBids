@@ -4,16 +4,15 @@ import 'package:flutter/material.dart';
 import 'bottom_sheet_message.dart';
 
 class BottomSheetMessageHelper {
-  showMessage({
-    @required WidgetType type,String title,
-    String message,
-    String sumbitButtonTitle,
-    Function onTapSubmitCallback,
-    BuildContext context,
-    bool isDismissible,
-    bool isDraggable
-}
-      ) {
+  showMessage(
+      {@required WidgetType type,
+      String title,
+      String message,
+      String sumbitButtonTitle,
+      Function onTapSubmitCallback,
+      BuildContext context,
+      bool isDismissible,
+      bool isDraggable}) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       showModalBottomSheet(
           backgroundColor: Colors.transparent,

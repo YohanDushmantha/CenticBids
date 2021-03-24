@@ -12,26 +12,30 @@ abstract class AuctionsState extends Equatable {
 }
 
 class AuctionsInitial extends AuctionsState {
-  AuctionsInitial({@required List<DocumentSnapshot> auctionList}): super(auctionList: auctionList);
+  AuctionsInitial({@required List<DocumentSnapshot> auctionList})
+      : super(auctionList: auctionList);
   @override
   List<Object> get props => [];
 }
 
-class Loading extends AuctionsState{
-  Loading({@required List<DocumentSnapshot> auctionList}): super(auctionList: auctionList);
+class Loading extends AuctionsState {
+  Loading({@required List<DocumentSnapshot> auctionList})
+      : super(auctionList: auctionList);
   @override
   List<Object> get props => [];
 }
 
-class Error extends AuctionsState{
+class Error extends AuctionsState {
   final RuntimeError runtimeError;
-  Error({@required List<DocumentSnapshot> auctionList, this.runtimeError}): super(auctionList: auctionList);
+  Error({@required List<DocumentSnapshot> auctionList, this.runtimeError})
+      : super(auctionList: auctionList);
   @override
   List<Object> get props => [runtimeError];
 }
 
-class AuctionLoaded extends AuctionsState{
-  AuctionLoaded({@required List<DocumentSnapshot> auctionList}): super(auctionList: auctionList);
+class AuctionLoaded extends AuctionsState {
+  AuctionLoaded({@required List<DocumentSnapshot> auctionList})
+      : super(auctionList: auctionList);
   @override
   List<Object> get props => [];
 }

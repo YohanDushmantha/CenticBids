@@ -4,7 +4,6 @@ import 'package:centic_bids/core/features/presentation/bloc/error_handling_bloc_
 import 'package:centic_bids/features/onboarding/domain/entities/app_user.dart';
 import 'package:centic_bids/features/onboarding/domain/use_case/authenticate_user_with_firebase_usecase.dart';
 import 'package:dartz/dartz.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'bloc.dart';
 

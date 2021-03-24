@@ -12,7 +12,7 @@ class FetchAuctionsUsecase extends UseCase<List<DocumentSnapshot>, Params> {
   FetchAuctionsUsecase({this.repository});
 
   @override
-  Future<Either<Failure, List<DocumentSnapshot>>> call(Params params) async{
+  Future<Either<Failure, List<DocumentSnapshot>>> call(Params params) async {
     return await repository.fetchAuctions(params);
   }
 }

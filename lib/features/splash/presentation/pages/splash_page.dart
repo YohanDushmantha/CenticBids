@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:centic_bids/core/states/app_states.dart';
@@ -20,7 +19,7 @@ class _SplashPageState extends State<SplashPage> {
   final AppStates appStates = di();
 
   @override
-  void initState(){
+  void initState() {
     loadLoggedInUser();
     redirectToNextPage();
     super.initState();
@@ -35,7 +34,7 @@ class _SplashPageState extends State<SplashPage> {
     }
   }
 
-  redirectToNextPage(){
+  redirectToNextPage() {
     Future.delayed(const Duration(milliseconds: 1000), () {
       ExtendedNavigator.of(context).pop();
       ExtendedNavigator.of(context).pushHomePage();
@@ -48,7 +47,8 @@ class _SplashPageState extends State<SplashPage> {
       constraints: BoxConstraints.expand(),
       decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage("assets/graphics/splash.png"), fit: BoxFit.cover)),
+              image: AssetImage("assets/graphics/splash.png"),
+              fit: BoxFit.cover)),
       child: Container(),
     );
   }

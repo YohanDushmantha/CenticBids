@@ -38,15 +38,12 @@ class RoundedIconOutlineButton extends StatelessWidget {
           ),
         ),
         onTapDown: (TapDownDetails details) {
-          print('YD -> onTapDown');
           onTapCallback();
         },
         onTapUp: (TapUpDetails details) {
-          print('YD -> onTapUp');
           onTapUpCallback();
         },
         onTapCancel: () {
-          print('YD -> onTapCancel');
           onTapUpCallback();
         },
       ),

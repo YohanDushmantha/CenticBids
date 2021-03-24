@@ -1,4 +1,5 @@
 import 'package:centic_bids/core/ui/widgets/widget_type.dart';
+import 'package:centic_bids/generated/l10n.dart';
 import 'package:centic_bids/injection_container.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:centic_bids/themes/app_colors.dart' as appColors;
@@ -9,14 +10,16 @@ class MainBarButton extends StatelessWidget {
   final String title;
   final Function onTapCallback;
   final TextStyle textStyle;
-  final MainBarButtonStyles styles= di();
+  final MainBarButtonStyles styles = di();
 
   MainBarButton(
-      {this.type = WidgetType.PRIMARY, @required this.title, @required this.onTapCallback,this.textStyle})
-      : assert(title != null){
-   styles.config(type);
+      {this.type = WidgetType.PRIMARY,
+      @required this.title,
+      @required this.onTapCallback,
+      this.textStyle})
+      : assert(title != null) {
+    styles.config(type);
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -30,24 +33,22 @@ class MainBarButton extends StatelessWidget {
           primary: styles.background,
           onPrimary: styles.foreground,
         ),
-        child: Text(
-          title ?? 'SUBMIT'
-        ),
+        child: Text(title ?? S.of(context).mainBarBtnDefaultTitle),
       ),
     );
   }
 }
 
-class MainBarButtonStyles{
+class MainBarButtonStyles {
   final buttonHeight = 48.0;
   final cornerRadius = 6.0;
   final borderColor = Colors.transparent;
   final borderWidth = 1.0;
-  var background=appColors.darkBlue;
+  var background = appColors.darkBlue;
   final foreground = appColors.white;
 
-  config(WidgetType type){
-    switch(type){
+  config(WidgetType type) {
+    switch (type) {
       case WidgetType.PRIMARY:
         background = appColors.primary;
         break;

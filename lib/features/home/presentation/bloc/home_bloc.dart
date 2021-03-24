@@ -8,8 +8,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc() : super(InitialHomeState(selectedIndex: 0));
 
   @override
-  Stream<HomeState> mapEventToState(HomeEvent event) async*{
-
+  Stream<HomeState> mapEventToState(HomeEvent event) async* {
     if (event is SelectNavItem) {
       yield LoadingState(selectedIndex: selectedIndex);
       selectedIndex = event.selectedIndex;

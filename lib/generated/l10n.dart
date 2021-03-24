@@ -365,6 +365,16 @@ class S {
     );
   }
 
+  /// `You have made a bid successfully`
+  String get biddingSuccessMessage {
+    return Intl.message(
+      'You have made a bid successfully',
+      name: 'biddingSuccessMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `You are not signed in`
   String get profileYouAreNotSignedIn {
     return Intl.message(
@@ -390,6 +400,66 @@ class S {
     return Intl.message(
       'You are successfully Sign out',
       name: 'signoutSuccessMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You are not signed in`
+  String get youAreNotSignedIn {
+    return Intl.message(
+      'You are not signed in',
+      name: 'youAreNotSignedIn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `SUBMIT`
+  String get mainBarBtnDefaultTitle {
+    return Intl.message(
+      'SUBMIT',
+      name: 'mainBarBtnDefaultTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sold Out`
+  String get countDownSoldOut {
+    return Intl.message(
+      'Sold Out',
+      name: 'countDownSoldOut',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are You Sure?`
+  String get appExitMessageTitle {
+    return Intl.message(
+      'Are You Sure?',
+      name: 'appExitMessageTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do you want to exit the app?`
+  String get appExitMessageDetail {
+    return Intl.message(
+      'Do you want to exit the app?',
+      name: 'appExitMessageDetail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Yes`
+  String get appExitPositiveBtnText {
+    return Intl.message(
+      'Yes',
+      name: 'appExitPositiveBtnText',
       desc: '',
       args: [],
     );

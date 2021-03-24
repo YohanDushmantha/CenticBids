@@ -13,21 +13,21 @@ class SignUpInitial extends SignUpState {
   List<Object> get props => [];
 }
 
-class Loading extends SignUpState{
+class Loading extends SignUpState {
   @override
   List<Object> get props => [];
 }
 
-class RegisterUserWithUsernameAndPasswordSuccess extends SignUpState{
+class RegisterUserWithUsernameAndPasswordSuccess extends SignUpState {
   final AppUser appUser;
 
   RegisterUserWithUsernameAndPasswordSuccess({@required this.appUser});
 
- @override
+  @override
   List<Object> get props => [appUser];
 }
 
-class Error extends SignUpState{
+class Error extends SignUpState {
   final RuntimeError runtimeError;
 
   Error({this.runtimeError});

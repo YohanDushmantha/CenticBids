@@ -32,6 +32,9 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
     "accountPageTitle" : MessageLookupByLibrary.simpleMessage("Account"),
+    "appExitMessageDetail" : MessageLookupByLibrary.simpleMessage("Do you want to exit the app?"),
+    "appExitMessageTitle" : MessageLookupByLibrary.simpleMessage("Are You Sure?"),
+    "appExitPositiveBtnText" : MessageLookupByLibrary.simpleMessage("Yes"),
     "auctionDetailPageTitle" : MessageLookupByLibrary.simpleMessage("Auction Detail"),
     "auctionPageTitle" : MessageLookupByLibrary.simpleMessage("Auction"),
     "basePrice" : MessageLookupByLibrary.simpleMessage("Base Price"),
@@ -39,10 +42,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "biddingBidNowBtnTitle" : MessageLookupByLibrary.simpleMessage("BID NOW"),
     "biddingCloseBtnTitle" : MessageLookupByLibrary.simpleMessage("NOT NOW"),
     "biddingPageTitle" : MessageLookupByLibrary.simpleMessage("Bid Now"),
+    "biddingSuccessMessage" : MessageLookupByLibrary.simpleMessage("You have made a bid successfully"),
+    "countDownSoldOut" : MessageLookupByLibrary.simpleMessage("Sold Out"),
     "errorMessageTitle" : MessageLookupByLibrary.simpleMessage("Error Message"),
     "infoMessageTitle" : MessageLookupByLibrary.simpleMessage("Information Message"),
     "latestPrice" : MessageLookupByLibrary.simpleMessage("Latest Price"),
     "loading" : MessageLookupByLibrary.simpleMessage("LOADING"),
+    "mainBarBtnDefaultTitle" : MessageLookupByLibrary.simpleMessage("SUBMIT"),
     "messageSubmitBtnTitle" : MessageLookupByLibrary.simpleMessage("OK"),
     "myBiddingsPageTitle" : MessageLookupByLibrary.simpleMessage("My Biddings"),
     "primaryMessageTitle" : MessageLookupByLibrary.simpleMessage("Message"),
@@ -74,6 +80,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "validationPasswordNotEqualsToConfirmPassword" : MessageLookupByLibrary.simpleMessage("Password is not matched with confirm password."),
     "validationPhoneNumberNotValid" : MessageLookupByLibrary.simpleMessage("Phone Number is not valid"),
     "viewMore" : MessageLookupByLibrary.simpleMessage("VIEW MORE"),
-    "warningMessageTitle" : MessageLookupByLibrary.simpleMessage("Warning Message")
+    "warningMessageTitle" : MessageLookupByLibrary.simpleMessage("Warning Message"),
+    "youAreNotSignedIn" : MessageLookupByLibrary.simpleMessage("You are not signed in")
   };
 }

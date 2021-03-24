@@ -5,7 +5,7 @@ abstract class AuctionDetailEvent extends Equatable {
   const AuctionDetailEvent();
 }
 
-class FetchAuction extends AuctionDetailEvent{
+class FetchAuction extends AuctionDetailEvent {
   final String auctionId;
   FetchAuction({@required this.auctionId});
 

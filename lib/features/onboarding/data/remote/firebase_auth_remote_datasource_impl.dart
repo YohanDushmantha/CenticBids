@@ -42,37 +42,41 @@ class FirebaseAuthRemoteDatasourceImpl extends FirebaseAuthRemoteDatasource {
       'lastName': params?.lastName,
       'uid': userCredential?.user?.uid,
       'deviceToken': firebaseToken
-    }).then((value) => value.get().then((snapshot) => AppUser.fromJson(snapshot.data(), snapshot.id)));
+    }).then((value) => value
+        .get()
+        .then((snapshot) => AppUser.fromJson(snapshot.data(), snapshot.id)));
   }
 
-
-
   @override
-  Future<AppUser> getUserFromFirestore(authenticateUserWithFirebaseUsecase.Params params, UserCredential userCredential) async{
-    Query query =  await FirebaseFirestore?.instance?.collection('users')
+  Future<AppUser> getUserFromFirestore(
+      authenticateUserWithFirebaseUsecase.Params params,
+      UserCredential userCredential) async {
+    Query query = await FirebaseFirestore?.instance
+        ?.collection('users')
         ?.where('uid', isEqualTo: userCredential.user?.uid);
 
-    if(query == null){
+    if (query == null) {
       return null;
     }
 
-    QueryDocumentSnapshot queryDocumentSnapshot = await query?.get()?.then((querySnapshot) => querySnapshot?.docs?.first);
+    QueryDocumentSnapshot queryDocumentSnapshot =
+        await query?.get()?.then((querySnapshot) => querySnapshot?.docs?.first);
 
-    if(queryDocumentSnapshot == null){
+    if (queryDocumentSnapshot == null) {
       return null;
     }
 
-    return await queryDocumentSnapshot?.reference?.get()?.then((documentSnapshot) => AppUser?.fromJson(documentSnapshot.data(), documentSnapshot.id));
-
+    return await queryDocumentSnapshot?.reference?.get()?.then(
+        (documentSnapshot) =>
+            AppUser?.fromJson(documentSnapshot.data(), documentSnapshot.id));
   }
 
   @override
   Future<AppUser> updateDeviceToken(AppUser appUser) async {
     String firebaseToken = await FirebaseMessaging.instance.getToken();
-    await FirebaseFirestore?.instance?.collection('users')
+    await FirebaseFirestore?.instance
+        ?.collection('users')
         ?.doc(appUser.id)
         ?.update({'deviceToken': firebaseToken});
   }
-
-
 }

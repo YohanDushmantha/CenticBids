@@ -57,5 +57,3 @@ class LoadedBidNow extends BiddingState {
   @override
   List<Object> get props => [bid];
 }
-
-

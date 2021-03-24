@@ -7,21 +7,22 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:centic_bids/core/network/response/error.dart';
 
-class BidNowUsecase extends UseCase<Bid, Params>{
+class BidNowUsecase extends UseCase<Bid, Params> {
   final AuctionsRepository repository;
   BidNowUsecase({this.repository});
 
   @override
-  Future<Either<Failure, Bid>> call(Params params) async{
-    if(params.biddingAmount > params?.auctionItem?.latestPrice){
+  Future<Either<Failure, Bid>> call(Params params) async {
+    if (params.biddingAmount > params?.auctionItem?.latestPrice) {
       return await repository.createBid(params);
-    }else{
-      return Left(ValidationFailure(Error(errorMessage: 'Bidding amount should be greater than latest bid')));
+    } else {
+      return Left(ValidationFailure(Error(
+          errorMessage: 'Bidding amount should be greater than latest bid')));
     }
   }
 }
 
-class Params extends Equatable{
+class Params extends Equatable {
   final int biddingAmount;
   final String uid;
   final String auctionId;

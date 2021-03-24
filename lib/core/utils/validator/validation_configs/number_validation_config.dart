@@ -1,11 +1,14 @@
 import '../validation_config.dart';
 
-class NumberValidationConfig extends ValidationConfig{
+class NumberValidationConfig extends ValidationConfig {
   NumberValidationConfig({
     String customErrorMessage,
     String customSuccessMessage,
     bool successMessageIsRequired,
-  }) : super(customErrorMessage  :customErrorMessage,customSuccessMessage : customSuccessMessage,successMessageIsRequired : successMessageIsRequired);
+  }) : super(
+            customErrorMessage: customErrorMessage,
+            customSuccessMessage: customSuccessMessage,
+            successMessageIsRequired: successMessageIsRequired);
 
   @override
   List<Object> get props => super.props;

@@ -1,4 +1,3 @@
-//import 'package:centic_bids/core/errors/common_failure_messages.dart';
 import 'package:centic_bids/core/errors/failures.dart';
 import 'package:centic_bids/core/usecase/usecase.dart';
 import 'package:centic_bids/core/utils/validator/validation_configs/email_validation_config.dart';
@@ -12,13 +11,11 @@ import 'package:centic_bids/features/onboarding/domain/repositories/firebase_aut
 import 'package:centic_bids/generated/l10n.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:centic_bids/core/network/response/error.dart';
 
-class RegisterUserWithFirebaseUseCase extends UseCase<AppUser, Params>{
-
+class RegisterUserWithFirebaseUseCase extends UseCase<AppUser, Params> {
   final FirebaseAuthRepository repository;
   final Validator validator;
 
@@ -27,14 +24,15 @@ class RegisterUserWithFirebaseUseCase extends UseCase<AppUser, Params>{
   @override
   Future<Either<Failure, AppUser>> call(Params params) async {
     final validationResult = await validate(params);
-    if(validationResult.isValid){
+    if (validationResult.isValid) {
       return repository.createUserWithEmailAndPassword(params);
-    }else{
-      return Left(ValidationFailure(Error(errorMessage: validationResult.message)));
+    } else {
+      return Left(
+          ValidationFailure(Error(errorMessage: validationResult.message)));
     }
   }
 
-  Future<ValidationResult> validate(Params params) async{
+  Future<ValidationResult> validate(Params params) async {
     List<ValidationField> validationFieldList = [
       ValidationField(
           fieldName: S.of(params.context).signUpPageFirstNameFieldLabel,
@@ -60,16 +58,16 @@ class RegisterUserWithFirebaseUseCase extends UseCase<AppUser, Params>{
           value: params?.password?.trim(),
           validationConfigList: [
             RequiredValidationConfig(),
-            PasswordMatchValidationConfig(confirmPassword: params?.retypePassword?.trim())
+            PasswordMatchValidationConfig(
+                confirmPassword: params?.retypePassword?.trim())
           ]),
     ];
 
     return validator.validateFields(validationFieldList, params.context);
   }
-  
 }
 
-class Params extends Equatable{
+class Params extends Equatable {
   final String firstName;
   final String lastName;
   final String email;
@@ -77,8 +75,15 @@ class Params extends Equatable{
   final String retypePassword;
   final BuildContext context;
 
-  Params({@required this.context ,@required this.firstName, @required this.lastName,@required this.email, @required this.password, @required this.retypePassword});
+  Params(
+      {@required this.context,
+      @required this.firstName,
+      @required this.lastName,
+      @required this.email,
+      @required this.password,
+      @required this.retypePassword});
 
   @override
-  List<Object> get props => [context, firstName, lastName, email,password, retypePassword];
+  List<Object> get props =>
+      [context, firstName, lastName, email, password, retypePassword];
 }

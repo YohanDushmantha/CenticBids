@@ -1,5 +1,5 @@
+import 'package:centic_bids/generated/l10n.dart';
 import 'package:centic_bids/injection_container.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_countdown_timer/current_remaining_time.dart';
@@ -18,7 +18,7 @@ class Countdown extends StatelessWidget {
       endTime: timestamp * 1000,
       widgetBuilder: (_, CurrentRemainingTime time) {
         if (time == null) {
-          return Text('Sold Out');
+          return Text(S.of(context).countDownSoldOut);
         }
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -26,53 +26,100 @@ class Countdown extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(time.days != null ? time?.days?.toString()?.length > 1 ? time?.days?.toString() : '0'+time?.days?.toString() : '00', style: Theme.of(context).textTheme.headline4.copyWith(color: appColors.darkGray)),
+                Text(
+                    time.days != null
+                        ? time?.days?.toString()?.length > 1
+                            ? time?.days?.toString()
+                            : '0' + time?.days?.toString()
+                        : '00',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline4
+                        .copyWith(color: appColors.darkGray)),
                 Text('D')
               ],
             ),
             Padding(
               padding: const EdgeInsets.all(4.0),
-              child: Text(':', style: Theme.of(context).textTheme.headline4.copyWith(color: appColors.darkGray),),
+              child: Text(
+                ':',
+                style: Theme.of(context)
+                    .textTheme
+                    .headline4
+                    .copyWith(color: appColors.darkGray),
+              ),
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(time.hours != null ? time?.hours?.toString()?.length > 1 ? time?.hours?.toString() : '0'+time?.hours?.toString() : '00', style: Theme.of(context).textTheme.headline4.copyWith(color: appColors.darkGray)),
+                Text(
+                    time.hours != null
+                        ? time?.hours?.toString()?.length > 1
+                            ? time?.hours?.toString()
+                            : '0' + time?.hours?.toString()
+                        : '00',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline4
+                        .copyWith(color: appColors.darkGray)),
                 Text('M')
               ],
             ),
             Padding(
               padding: const EdgeInsets.all(4.0),
-              child: Text(':', style: Theme.of(context).textTheme.headline4.copyWith(color: appColors.darkGray),),
+              child: Text(
+                ':',
+                style: Theme.of(context)
+                    .textTheme
+                    .headline4
+                    .copyWith(color: appColors.darkGray),
+              ),
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(time.min != null ? time?.min?.toString()?.length > 1 ? time?.min?.toString() : '0'+time?.min?.toString() : '00', style: Theme.of(context).textTheme.headline4.copyWith(color: appColors.darkGray)),
+                Text(
+                    time.min != null
+                        ? time?.min?.toString()?.length > 1
+                            ? time?.min?.toString()
+                            : '0' + time?.min?.toString()
+                        : '00',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline4
+                        .copyWith(color: appColors.darkGray)),
                 Text('H')
               ],
             ),
             Padding(
               padding: const EdgeInsets.all(4.0),
-              child: Text(':', style: Theme.of(context).textTheme.headline4.copyWith(color: appColors.darkGray),),
+              child: Text(
+                ':',
+                style: Theme.of(context)
+                    .textTheme
+                    .headline4
+                    .copyWith(color: appColors.darkGray),
+              ),
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(time.sec != null ? time?.sec?.toString()?.length > 1 ? time?.sec?.toString() : '0'+time?.sec?.toString() : '00', style: Theme.of(context).textTheme.headline4.copyWith(color: appColors.darkGray),),
+                Text(
+                  time.sec != null
+                      ? time?.sec?.toString()?.length > 1
+                          ? time?.sec?.toString()
+                          : '0' + time?.sec?.toString()
+                      : '00',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline4
+                      .copyWith(color: appColors.darkGray),
+                ),
                 Text('S')
               ],
             )
           ],
         );
-        return Text(
-            '${time.days != null ? time.days.toString() + 'D' : ''} '
-                '${time.hours != null ? time.hours.toString() + 'H' : ''} '
-                '${time.min != null ? time.min.toString() + 'M' : ''} '
-                '${time.sec != null ? time.sec.toString() + 'S' : ''}',
-        style: Theme.of(context).textTheme.headline3.copyWith(
-          color: styles.CountDownTextColor
-        ),);
       },
     );
   }

@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class Bid extends Equatable{
+class Bid extends Equatable {
   final String id;
   final String auctionId;
   final int biddingAmount;

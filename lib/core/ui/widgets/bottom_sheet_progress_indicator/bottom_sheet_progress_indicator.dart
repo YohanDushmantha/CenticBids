@@ -5,14 +5,11 @@ import 'package:centic_bids/themes/app_colors.dart' as appColors;
 
 import '../../../../injection_container.dart';
 
-class BottomSheetProgressIndicator extends StatelessWidget{
+class BottomSheetProgressIndicator extends StatelessWidget {
   final String loadingText;
   final BuildContext parentContext;
   final BottomSheetProgressIndicatoryStyle styles = di();
-  BottomSheetProgressIndicator({
-    //this.key,
-    this.loadingText, this.parentContext});
-  //: super(key: key);
+  BottomSheetProgressIndicator({this.loadingText, this.parentContext});
 
   @override
   Widget build(BuildContext context) {
@@ -31,24 +28,26 @@ class BottomSheetProgressIndicator extends StatelessWidget{
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   loadingText ?? S.of(context).loading,
-                  style: Theme.of(context).textTheme.headline3.copyWith(color: appColors.darkGray),
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline3
+                      .copyWith(color: appColors.darkGray),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all( 16),
+                padding: const EdgeInsets.all(16),
                 child: Center(
                   child: SizedBox(
                     width: 32,
                     height: 32,
                     child: CircularProgressIndicator(
                       backgroundColor: styles.spinnerAccentColor,
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                          styles.spinnerColor),
+                      valueColor:
+                          AlwaysStoppedAnimation<Color>(styles.spinnerColor),
                     ),
                   ),
                 ),
               ),
-
             ],
           )
         ],
@@ -57,7 +56,7 @@ class BottomSheetProgressIndicator extends StatelessWidget{
   }
 }
 
-class BottomSheetProgressIndicatoryStyle{
+class BottomSheetProgressIndicatoryStyle {
   final spinnerColor = appColors.green;
   final spinnerAccentColor = appColors.darkGray;
 }
